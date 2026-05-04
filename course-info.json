@@ -1,0 +1,11 @@
+{
+    "fullCourseName":"MQTT and ESP32 IoT Lab Course",
+    "shortCourseName":"MQTT IoT Lab",
+    "shortDescription":"Learn Python and MQTT by programming a real ESP32 device with sensors, LEDs, and servo control, then connect it to backend dashboards and device verification.",
+    "fullDescription":"MQTT and ESP32 IoT Lab Course is a hands-on beginner course where students build a complete Internet of Things pipeline around a real ESP32 device. Students publish telemetry, react to incoming MQTT commands, read sensors such as light or DHT modules, and control outputs such as LEDs or servo motors. The course then extends beyond firmware basics into backend ingestion, historical storage, realtime dashboards, and device control flows. Depending on the task, physical results can be verified both through MQTT messages and through camera-observed hardware behavior. The course is designed as a practical bridge between embedded programming, messaging protocols, and full-stack IoT application development.",
+    "imageSmall":"https://api.ondroid.org/media/courses/0/images/course-info/mqtt-course-small.jpg",
+    "imageBig":"https://api.ondroid.org/media/courses/0/images/course-info/mqtt-course-big.jpg",
+    "workload":"3 ECTS",
+    "requirements":"No prior robotics experience is required. Basic programming curiosity is enough.",
+    "programmingLanguage":"python"
+}

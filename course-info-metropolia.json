@@ -1,0 +1,11 @@
+{
+    "fullCourseName":"MQTT and ESP32 IoT Lab Course @ Metropolia",
+    "shortCourseName":"MQTT IoT Lab @ Metropolia",
+    "shortDescription":"Build an end-to-end IoT pipeline with ESP32, MQTT, sensors, actuators, backend storage, and dashboards.",
+    "fullDescription":"This course introduces students to modern IoT development through practical ESP32 laboratory assignments. Students implement periodic telemetry, MQTT command handling, sensor integrations, actuator control, and backend-connected historical and realtime views. The course is structured so that each lab can be verified through MQTT traffic and, when needed, through visible physical effects captured by a camera.",
+    "imageSmall":"https://api.ondroid.org/media/courses/0/images/course-info/mqtt-course-small.jpg",
+    "imageBig":"https://api.ondroid.org/media/courses/0/images/course-info/mqtt-course-big.jpg",
+    "workload":"3 ECTS",
+    "requirements":"Beginner-friendly. Basic familiarity with variables, functions, and loops is helpful.",
+    "programmingLanguage":"python"
+}

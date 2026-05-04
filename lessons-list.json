@@ -1,0 +1,66 @@
+[
+    {
+        "name": "MQTT Connection and Telemetry",
+        "description": "Broker connection, topic subscription, disconnect flow, and first telemetry.",
+        "sn": 0,
+        "str_id": "module_1",
+        "lessons": [
+            {
+                "str_id": "mqtt_connect_disconnect",
+                "url": "https://raw.githubusercontent.com/autolab-fi/mqtt-course-basic/main/lessons/module_1/mission_1.1.md",
+                "sn": 0,
+                "name": "Connect, Subscribe, Publish, Disconnect",
+                "description": "Use MicroPython to connect to the broker, subscribe to a topic, exchange messages, and disconnect cleanly.",
+                "template": "from umqtt.simple import MQTTClient\n\n# Fill in your MQTT settings here\nclient = MQTTClient(client_id=b\"student-device\", server=\"broker.emqx.io\")\n\n# Connect, publish, subscribe, and disconnect here\n"
+            },
+            {
+                "str_id": "first_sensor_publish",
+                "url": "https://raw.githubusercontent.com/autolab-fi/mqtt-course-basic/main/lessons/module_1/mission_1.2.md",
+                "sn": 1,
+                "name": "First Sensor Publish",
+                "description": "Publish sensor data every two seconds as JSON with backend-friendly metadata.",
+                "template": "# Read a sensor and publish JSON telemetry every 2 seconds"
+            }
+        ]
+    },
+    {
+        "name": "Remote Device Control",
+        "description": "Control visible hardware outputs through MQTT and report their actual state.",
+        "sn": 1,
+        "str_id": "module_2",
+        "lessons": [
+            {
+                "str_id": "led_command_listener",
+                "url": "https://raw.githubusercontent.com/autolab-fi/mqtt-course-basic/main/lessons/module_2/mission_2.1.md",
+                "sn": 2,
+                "name": "LED Command Listener",
+                "description": "Subscribe to a command topic and toggle an LED from incoming JSON.",
+                "template": "# Subscribe to LED commands and publish resulting LED state"
+            },
+            {
+                "str_id": "servo_control_basics",
+                "url": "https://raw.githubusercontent.com/autolab-fi/mqtt-course-basic/main/lessons/module_2/mission_2.2.md",
+                "sn": 3,
+                "name": "Servo Control Basics",
+                "description": "Move a servo to a requested angle from a JSON command and report the actual position.",
+                "template": "# Parse angle command, move servo, and publish the state"
+            }
+        ]
+    },
+    {
+        "name": "Integrated Device Logic",
+        "description": "Combine telemetry, backend-friendly metadata, and local automation into realistic labs.",
+        "sn": 2,
+        "str_id": "module_3",
+        "lessons": [
+            {
+                "str_id": "threshold_rule",
+                "url": "https://raw.githubusercontent.com/autolab-fi/mqtt-course-basic/main/lessons/module_3/mission_3.1.md",
+                "sn": 4,
+                "name": "Threshold Rule on the Device",
+                "description": "React locally to a sensor threshold crossing using LED or servo output while still reporting telemetry.",
+                "template": "# Implement a local threshold rule"
+            }
+        ]
+    }
+]

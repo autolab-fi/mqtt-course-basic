@@ -18,7 +18,7 @@ Assume the LED is connected to `GPIO 2`.
 ## Assignment
 Write a program that:
 
-- reads broker host, port, username, and password from the board configuration
+- reads broker host, port, username, and password from the injected `mqtt_config`
 - creates its own MQTT client
 - subscribes to the attempt command topic
 - publishes one ready message to telemetry
@@ -68,6 +68,7 @@ Required event payload after the LED turns on:
 ## Notes
 
 - The platform injects `ATTEMPT_USER_ID`, `ATTEMPT_SUBMISSION_ID`, and `ATTEMPT_TOPIC_ROOT` before your code runs.
+- The platform also injects `mqtt_config` and `make_mqtt_client(...)` so your code can connect to the course broker without importing `firmware.config`.
 - The smoke task is intentionally short-lived. Your code should not run forever.
 - A simple loop with a timeout is enough for this task.
 

@@ -9,7 +9,7 @@ for path in (PROJECT_ROOT, WORKER_ROOT):
         sys.path.insert(0, str(path))
 
 from attempt_runtime import AttemptRuntime, extract_code_features
-from verifications.module_2 import verify_attempt
+from verifications.module_2 import get_verification_config, verify_attempt
 
 
 def make_runtime(*, code: str, mqtt_messages=None, checker_commands=None, final_status="ok"):
@@ -95,3 +95,10 @@ while True:
 
     assert result["success"] is False
     assert "Student runtime timed out" in result["description"] or "wait forever" in result["description"]
+
+
+def test_module_2_exposes_task_level_timeout_contract():
+    config = get_verification_config("led_command_listener")
+
+    assert config["attempt_timeout_s"] == 30.0
+    assert config["stream_ready_timeout_s"] == 30.0

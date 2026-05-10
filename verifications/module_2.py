@@ -1,3 +1,17 @@
+TASK_CONFIGS = {
+    "led_command_listener": {
+        "attempt_timeout_s": 30.0,
+        "stream_ready_timeout_s": 30.0,
+    }
+}
+
+
+def get_verification_config(task=None):
+    if task is None:
+        return {}
+    return dict(TASK_CONFIGS.get(task, {}))
+
+
 def verify_attempt(attempt_runtime, td=None):
     if td is None:
         td = {

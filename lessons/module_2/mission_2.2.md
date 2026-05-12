@@ -1,38 +1,43 @@
-# Lesson 4: Servo Control Basics
+# Lesson 5: Parse a JSON Command
 
 ## Lesson objective
-Control a servo motor from MQTT and report the actual angle.
+Receive one MQTT command and parse its JSON payload.
+
+![Beginner](https://img.shields.io/badge/Difficulty-Beginner-green)
 
 ## Introduction
-Servo control is one of the most interesting lab outputs because it is both physically visible and easy to verify. A servo can represent:
-
-- a vent
-- a blind
-- a pointer
-- a small mechanical flag
+MQTT sends bytes. Most IoT commands are JSON text inside those bytes. Your code
+must decode the message and then use `json.loads(...)` to turn it into a Python
+dictionary.
 
 ## Assignment
 Write a program that:
 
-- subscribes to a servo command topic
-- parses a JSON payload with an `angle`
-- validates the angle before moving the servo
-- moves the servo to the requested position
-- publishes the resulting angle to a state topic
+- subscribes to `ATTEMPT_TOPIC_ROOT + "/command"`
+- publishes `command_ready` telemetry
+- receives a JSON command
+- parses the command with `json.loads(...)`
+- publishes an event containing the parsed action
 
-Suggested first command payload:
+Checker command:
 
 ```json
 {
-  "angle": 90
+  "target": "led",
+  "action": "set",
+  "value": true
 }
 ```
 
-Suggested first angles:
+Required event:
 
-- `0`
-- `90`
-- `180`
+```json
+{
+  "name": "command",
+  "event": "parsed",
+  "action": "set"
+}
+```
 
 ## Conclusion
-This lesson introduces actuator control that is much more expressive than a simple LED while still remaining practical for automatic verification.
+You can now read a structured command from MQTT.

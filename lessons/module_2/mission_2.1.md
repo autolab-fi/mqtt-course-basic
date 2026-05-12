@@ -1,76 +1,39 @@
-# Lesson 3: One-Shot MQTT LED Smoke Test
+# Lesson 4: Subscribe and Poll Commands
 
 ## Lesson objective
-Connect to MQTT directly, receive one command, and produce one visible response.
+Subscribe to an MQTT command topic and poll for incoming messages.
 
 ![Beginner](https://img.shields.io/badge/Difficulty-Beginner-green)
 
 ## Introduction
-This is the first lesson where your ESP32 acts as a real MQTT client. Your code must connect to the broker itself, authenticate, subscribe to a command topic, and publish a response after acting on the command.
+IoT devices often listen for commands from another program. In MicroPython with
+`umqtt.simple`, a common beginner pattern is:
 
-For this smoke version, keep the hardware output simple and robust:
-
-- built-in LED, or
-- external LED on a GPIO pin
-
-Assume the LED is connected to `GPIO 2`.
+- subscribe to a topic
+- set a callback
+- call `check_msg()` inside a short loop
 
 ## Assignment
 Write a program that:
 
-- reads broker host, port, username, and password from the injected `mqtt_config`
-- creates its own MQTT client
-- subscribes to the attempt command topic
-- publishes one ready message to telemetry
-- waits for one command for a limited time
-- turns the LED on when it receives the command payload
-- publishes one event message confirming the LED change
-- disconnects and exits after the exchange finishes
+- connects to MQTT
+- subscribes to `ATTEMPT_TOPIC_ROOT + "/command"`
+- publishes ready telemetry to `ATTEMPT_TOPIC_ROOT + "/telemetry"`
+- polls messages with `check_msg()` for a limited time
+- disconnects cleanly
 
-Use the attempt-scoped topic root injected by the platform:
-
-- `ATTEMPT_TOPIC_ROOT + "/telemetry"`
-- `ATTEMPT_TOPIC_ROOT + "/command"`
-- `ATTEMPT_TOPIC_ROOT + "/event"`
-
-Required ready telemetry payload:
+Required ready telemetry:
 
 ```json
 {
-  "name": "led_ready",
-  "value": 1,
-  "ts": 1710000000
-}
-```
-
-Command payload sent by the checker:
-
-```json
-{
-  "target": "led",
-  "action": "set",
-  "value": true,
-  "ts": 1710000010
-}
-```
-
-Required event payload after the LED turns on:
-
-```json
-{
-  "name": "led",
-  "event": "changed",
-  "state": true,
-  "ts": 1710000011
+  "name": "command_ready",
+  "value": 1
 }
 ```
 
 ## Notes
-
-- The platform injects `ATTEMPT_USER_ID`, `ATTEMPT_SUBMISSION_ID`, and `ATTEMPT_TOPIC_ROOT` before your code runs.
-- The platform also injects `mqtt_config` and `make_mqtt_client(...)` so your code can connect to the course broker without importing `firmware.config`.
-- The smoke task is intentionally short-lived. Your code should not run forever.
-- A simple loop with a timeout is enough for this task.
+- Use a limited loop such as `for _ in range(30)`.
+- Do not use an endless `while True` loop in this course task.
 
 ## Conclusion
-You now have the minimum real MQTT round-trip: connect, authenticate, subscribe, receive, publish, disconnect.
+You can now subscribe to a command topic and give MQTT time to deliver messages.

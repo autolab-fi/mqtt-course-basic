@@ -7,10 +7,9 @@ This repository is a starting point for a real-hardware IoT course built around:
 
 - `ESP32`
 - MQTT telemetry and commands
-- sensor readings
-- actuator control such as LEDs and servo motors
-- backend ingestion and dashboards
-- optional camera-based verification
+- one visible LED output
+- JSON command parsing
+- worker-observed MQTT verification
 
 The directory layout intentionally follows the same structure as `lineRobot-micropython-course` so the course can be adapted without changing the expected repository shape.
 
@@ -29,14 +28,16 @@ The directory layout intentionally follows the same structure as `lineRobot-micr
 This repository is only a scaffold. It contains:
 
 - rewritten course metadata for an MQTT/ESP32 course
-- a compact `lessons-list.json` with 3 teaching modules and 5 core lessons
-- placeholder lesson content for the current lesson set
-- verification placeholders that can later be connected to `mqtt-worker`
+- a compact `lessons-list.json` with 3 teaching modules and 7 beginner lessons
+- lesson content for the current LED-only lesson set
+- verification handlers that can be connected to `mqtt-worker`
+- example solutions for local debugging and worker smoke tests
 
 ## Planned Course Direction
 
 The current draft assumes a progression like this:
 
-1. MQTT foundations and first telemetry
-2. Remote device control with visible outputs
-3. Integrated local automation on the device
+1. 30-second sandbox for trying code
+2. MQTT publish/connect/disconnect basics
+3. Subscribe, poll, and parse JSON commands
+4. Control the ESP32 LED and publish event/state messages

@@ -1,27 +1,57 @@
-# Lesson 5: Threshold Rule on the Device
+# Lesson 7: LED State Protocol
 
 ## Lesson objective
-Implement local automation logic on the ESP32 while still reporting telemetry and state.
+Implement a tiny IoT command protocol for one LED.
+
+![Beginner](https://img.shields.io/badge/Difficulty-Beginner-green)
 
 ## Introduction
-Not every IoT action has to come from the backend. In many realistic systems, the device reacts locally to a sensor threshold and still reports what it did.
+A real device usually supports more than one command. In this final beginner
+task, your ESP32 supports three LED actions:
 
-That makes the device both observable and autonomous.
+- `on`
+- `off`
+- `toggle`
+
+After the command, the device reports the final state.
 
 ## Assignment
-Create a rule such as:
+Write a program that:
 
-- if `light` is below a threshold, turn the LED on
-- if `temperature` is above a threshold, move the servo to a warning position
+- subscribes to `ATTEMPT_TOPIC_ROOT + "/command"`
+- publishes `protocol_ready` telemetry
+- accepts JSON commands with `action`
+- supports `on`, `off`, and `toggle`
+- publishes the final LED state to `ATTEMPT_TOPIC_ROOT + "/state"`
+- publishes a LED event to `ATTEMPT_TOPIC_ROOT + "/event"`
 
-Your program should:
+Example checker command:
 
-- keep publishing telemetry
-- apply the local rule
-- publish the actuator state after the rule triggers
+```json
+{
+  "target": "led",
+  "action": "toggle"
+}
+```
 
-Suggested extension:
-- still allow a remote MQTT command to override the actuator state
+Required final state:
+
+```json
+{
+  "target": "led",
+  "state": true
+}
+```
+
+Required event:
+
+```json
+{
+  "name": "led",
+  "event": "changed",
+  "state": true
+}
+```
 
 ## Conclusion
-This is the most realistic single-device assignment in the course, because it combines sensing, local decision-making, reporting, and visible hardware output.
+You have built a small MQTT device protocol with command input and state output.

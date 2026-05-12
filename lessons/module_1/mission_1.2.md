@@ -1,33 +1,43 @@
-# Lesson 2: First Sensor Publish
+# Lesson 2: Publish One JSON Message
 
 ## Lesson objective
-Publish JSON telemetry on a fixed schedule.
+Connect to MQTT and publish one JSON telemetry message.
 
 ![Beginner](https://img.shields.io/badge/Difficulty-Beginner-green)
+
+## Introduction
+MQTT devices send data by publishing messages to topics. In this lesson the ESP32
+will publish one telemetry message to the topic prepared for your attempt.
 
 ## Assignment
 Write a program that:
 
-- connects to the MQTT broker already configured for the lab
-- reads one real sensor value, such as `light`, `temperature`, or `humidity`
-- publishes one JSON message every 2 seconds
-- includes at least one sensor reading
-- uses a stable topic for telemetry
-- keeps the payload format identical on every publish
-- includes enough metadata for backend ingestion and historical dashboards
+- creates an MQTT client with `make_mqtt_client()`
+- connects to the broker
+- publishes one JSON message to `ATTEMPT_TOPIC_ROOT + "/telemetry"`
+- disconnects cleanly
 
-Recommended payload shape:
+Required payload:
 
 ```json
 {
-  "sensor": "light",
-  "value": 412,
-  "unit": "raw",
-  "device_state": "ok",
-  "timestamp": 1712345678,
-  "device_id": "esp32-lab-01"
+  "name": "hello",
+  "value": 1
 }
 ```
 
+## Example shape
+
+```python
+import json
+
+client = make_mqtt_client()
+topic = ATTEMPT_TOPIC_ROOT + "/telemetry"
+
+client.connect()
+client.publish(topic.encode(), json.dumps({"name": "hello", "value": 1}).encode())
+client.disconnect()
+```
+
 ## Conclusion
-Once your telemetry appears on schedule, you have the minimum building block for the rest of the course.
+You have sent your first device telemetry message through MQTT.

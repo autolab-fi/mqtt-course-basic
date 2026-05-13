@@ -13,6 +13,23 @@ IoT devices often listen for commands from another program. In MicroPython with
 - set a callback
 - call `check_msg()` inside a short loop
 
+## Lab architecture
+In command lessons, your ESP32 and the checker both use the same attempt topic
+root. Your program subscribes to `.../command`, then publishes ready telemetry.
+The ready message tells the worker that the board is connected and listening.
+Only after that does the worker publish the checker command.
+
+## MQTT concepts
+`subscribe(topic)` registers interest in messages from a topic. `set_callback(...)`
+registers the function that should run when a message arrives. With
+`umqtt.simple`, incoming messages are not processed automatically while your code
+is busy. `check_msg()` gives the MQTT client a chance to read one waiting message
+and call your callback.
+
+The loop must be bounded because this is a lab attempt, not permanent firmware.
+A limited loop gives MQTT time to deliver the command while still allowing the
+worker to finish the run predictably.
+
 ## Assignment
 Write a program that:
 

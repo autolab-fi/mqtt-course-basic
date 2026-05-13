@@ -15,6 +15,22 @@ task, your ESP32 supports three LED actions:
 
 After the command, the device reports the final state.
 
+## Lab architecture
+This lesson uses the full course architecture: command input, hardware action,
+event output, and state output. The worker sends a command to the real ESP32. The
+board updates the LED, publishes an event that describes the change, and publishes
+a state message that describes the final known state.
+
+## MQTT protocol concepts
+A protocol is an agreement about message shapes and meanings. Here the command
+protocol uses `target` and `action`, the event protocol uses `name`, `event`, and
+`state`, and the state protocol uses `target` and `state`.
+
+Events and state are different. An event says that something happened, for
+example "the LED changed". State says what is true now, for example "the LED is
+on". Real IoT systems often publish both because applications need both history
+and the latest known state.
+
 ## Assignment
 Write a program that:
 

@@ -10,6 +10,21 @@ This sandbox is for trying code safely before writing a strict lesson solution.
 Your program can print text and, if you want, publish MQTT messages. The checker
 will run it for up to 30 seconds.
 
+## Lab architecture
+Your code runs on a real ESP32 board, not in a browser simulator. The lab worker
+uploads your MicroPython file to the board, asks the firmware to run it, and then
+collects output from the board. Printed lines are sent back through the board's
+runtime channel so the checker can show what happened.
+
+The 30-second limit protects the shared hardware. If a program waits forever, the
+worker can stop waiting and keep the board available for the next attempt.
+
+## MQTT concepts
+MQTT is a lightweight message system used by many IoT devices. A device connects
+to a broker, publishes messages to topics, and can subscribe to topics to receive
+messages. You do not need MQTT for the first print-only sandbox, but the optional
+example shows the same connection pattern used later in the course.
+
 ## Assignment
 Write a short program that prints one line.
 

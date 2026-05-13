@@ -1,4 +1,4 @@
-# Lesson 6: Control the LED from MQTT
+# Lesson 9: Control the LED from MQTT
 
 ## Lesson objective
 Turn the ESP32 LED on or off from a JSON MQTT command.

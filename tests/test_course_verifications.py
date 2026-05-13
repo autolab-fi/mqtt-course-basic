@@ -92,6 +92,81 @@ def test_publish_telemetry_json_gives_beginner_hint_without_publish():
     assert "publish()" in result["description"]
 
 
+def test_led_on_event_passes_happy_path():
+    runtime = make_runtime(
+        task="led_on_event",
+        module="module_2",
+        code="""
+import json
+from machine import Pin
+led = Pin(2, Pin.OUT)
+led.value(1)
+client = make_mqtt_client()
+client.connect()
+client.publish((ATTEMPT_TOPIC_ROOT + "/event").encode(), b'{"name":"led","state":true}')
+client.disconnect()
+""",
+        mqtt_messages=[msg("edu/32/2001/event", {"name": "led", "state": True})],
+    )
+
+    _td, result = module_2.verify_attempt(runtime, None)
+
+    assert result["success"] is True
+    assert result["stage"] == "led_on_event_received"
+
+
+def test_led_off_event_passes_happy_path():
+    runtime = make_runtime(
+        task="led_off_event",
+        module="module_2",
+        code="""
+import json
+from machine import Pin
+led = Pin(2, Pin.OUT)
+led.value(0)
+client = make_mqtt_client()
+client.connect()
+client.publish((ATTEMPT_TOPIC_ROOT + "/event").encode(), b'{"name":"led","state":false}')
+client.disconnect()
+""",
+        mqtt_messages=[msg("edu/32/2001/event", {"name": "led", "state": False})],
+    )
+
+    _td, result = module_2.verify_attempt(runtime, None)
+
+    assert result["success"] is True
+    assert result["stage"] == "led_off_event_received"
+
+
+def test_led_command_on_minimal_passes_code_shape():
+    runtime = make_runtime(
+        task="led_command_on_minimal",
+        module="module_2",
+        code="""
+import time
+from machine import Pin
+led = Pin(2, Pin.OUT)
+client = make_mqtt_client()
+topic = ATTEMPT_TOPIC_ROOT + "/command"
+def on_message(topic, message):
+    led.value(1)
+client.set_callback(on_message)
+client.connect()
+client.subscribe(topic.encode())
+for _ in range(30):
+    client.check_msg()
+    time.sleep_ms(100)
+client.disconnect()
+""",
+        checker_commands=[{"topic": "edu/32/2001/command", "payload": {"target": "led", "action": "on"}, "sent_at": 1.5}],
+    )
+
+    _td, result = module_2.verify_attempt(runtime, None)
+
+    assert result["success"] is True
+    assert result["stage"] == "minimal_command_listener"
+
+
 def test_subscribe_command_poll_requires_polling_call():
     runtime = make_runtime(
         task="subscribe_command_poll",

@@ -1,4 +1,16 @@
 TASK_CONFIGS = {
+    "led_on_event": {
+        "attempt_timeout_s": 15.0,
+        "stream_ready_timeout_s": 15.0,
+    },
+    "led_off_event": {
+        "attempt_timeout_s": 15.0,
+        "stream_ready_timeout_s": 15.0,
+    },
+    "led_command_on_minimal": {
+        "attempt_timeout_s": 30.0,
+        "stream_ready_timeout_s": 30.0,
+    },
     "subscribe_command_poll": {
         "attempt_timeout_s": 30.0,
         "stream_ready_timeout_s": 30.0,
@@ -25,6 +37,9 @@ def verify_attempt(attempt_runtime, td=None):
         td = {"task": attempt_runtime.task}
 
     handlers = {
+        "led_on_event": _verify_led_on_event,
+        "led_off_event": _verify_led_off_event,
+        "led_command_on_minimal": _verify_led_command_on_minimal,
         "subscribe_command_poll": _verify_subscribe_command_poll,
         "parse_json_command": _verify_parse_json_command,
         "led_command_listener": _verify_led_command_listener,
@@ -33,6 +48,88 @@ def verify_attempt(attempt_runtime, td=None):
     if handler is None:
         return _unsupported(attempt_runtime, td)
     return handler(attempt_runtime, td)
+
+
+def _verify_led_on_event(attempt_runtime, td):
+    return _verify_direct_led_event(
+        attempt_runtime,
+        td,
+        expected_state=True,
+        expected_value_call="value(1",
+        description="LED on event received.",
+        stage="led_on_event_received",
+    )
+
+
+def _verify_led_off_event(attempt_runtime, td):
+    return _verify_direct_led_event(
+        attempt_runtime,
+        td,
+        expected_state=False,
+        expected_value_call="value(0",
+        description="LED off event received.",
+        stage="led_off_event_received",
+    )
+
+
+def _verify_direct_led_event(attempt_runtime, td, *, expected_state, expected_value_call, description, stage):
+    details = _details(attempt_runtime)
+    event_msg = attempt_runtime.find_message(
+        topic=attempt_runtime.topic("event"),
+        predicate=lambda item: item["payload"].get("name") == "led"
+        and item["payload"].get("state") is expected_state,
+    )
+    if event_msg is None:
+        if attempt_runtime.has_runtime_error():
+            return _fail(td, _runtime_error_hint(attempt_runtime), "runtime_failed", details)
+        if not _has_pin_output(attempt_runtime):
+            return _fail(td, "Create the LED output with led = Pin(2, Pin.OUT).", "code_check_pin", details)
+        if expected_value_call not in attempt_runtime.code.replace(" ", ""):
+            return _fail(td, "Set the LED to the required value before publishing the event.", "code_check_led_value", details)
+        if not attempt_runtime.code_features.get("has_publish"):
+            return _fail(td, "Publish an MQTT event after changing the LED.", "code_check_publish", details)
+        if not attempt_runtime.code_features.get("has_event_topic"):
+            return _fail(td, "Publish the LED report to ATTEMPT_TOPIC_ROOT + '/event'.", "code_check_event_topic", details)
+        return _fail(td, "LED event was not received. Publish name='led' and the required state.", "event_missing", details)
+
+    if not attempt_runtime.code_features.get("has_connect"):
+        return _fail(td, "No MQTT connect() call detected.", "code_check_connect", details)
+    if not attempt_runtime.code_features.get("has_disconnect"):
+        return _fail(td, "No disconnect() call detected. End this short task with client.disconnect().", "code_check_disconnect", details)
+
+    details["event_payload"] = event_msg["payload"]
+    return _pass(td, description, stage, details)
+
+
+def _verify_led_command_on_minimal(attempt_runtime, td):
+    details = _details(attempt_runtime)
+
+    if not _checker_command_seen(attempt_runtime):
+        return _fail(td, "Checker command was not sent on the attempt command topic.", "checker_command_missing", details)
+    if attempt_runtime.has_runtime_error():
+        return _fail(td, _runtime_error_hint(attempt_runtime), "runtime_failed", details)
+    if not _has_pin_output(attempt_runtime):
+        return _fail(td, "Create the LED output with led = Pin(2, Pin.OUT).", "code_check_pin", details)
+    if "set_callback(" not in attempt_runtime.code:
+        return _fail(td, "Register a callback with client.set_callback(...).", "code_check_callback", details)
+    if not attempt_runtime.code_features.get("has_connect"):
+        return _fail(td, "No MQTT connect() call detected.", "code_check_connect", details)
+    if not attempt_runtime.code_features.get("has_subscribe"):
+        return _fail(td, "Subscribe to ATTEMPT_TOPIC_ROOT + '/command'.", "code_check_subscribe", details)
+    if not attempt_runtime.code_features.get("has_command_topic"):
+        return _fail(td, "Use ATTEMPT_TOPIC_ROOT + '/command' as the command topic.", "code_check_command_topic", details)
+    if not _has_poll_call(attempt_runtime):
+        return _fail(td, "Call check_msg() or wait_msg() so MQTT can deliver the command.", "code_check_poll", details)
+    if not attempt_runtime.code_features.get("has_bounded_loop"):
+        return _fail(td, "Use a limited loop such as for _ in range(30), not an endless wait.", "code_check_bounded_loop", details)
+    if "value(1" not in attempt_runtime.code.replace(" ", ""):
+        return _fail(td, "Turn the LED on in the callback with led.value(1).", "code_check_led_on", details)
+    if not attempt_runtime.code_features.get("has_disconnect"):
+        return _fail(td, "No disconnect() call detected. End this short task with client.disconnect().", "code_check_disconnect", details)
+    if attempt_runtime.final_status not in {"ok", None}:
+        return _fail(td, _final_status_hint(attempt_runtime), "runtime_failed", details)
+
+    return _pass(td, "Minimal LED command listener ran and used the expected MQTT polling shape.", "minimal_command_listener", details)
 
 
 def _verify_subscribe_command_poll(attempt_runtime, td):
@@ -120,6 +217,11 @@ def _verify_led_command_listener(attempt_runtime, td):
         return _fail(td, "No disconnect() call detected. End this short task with client.disconnect().", "code_check_disconnect", details)
 
     return _pass(td, "Ready telemetry and LED event received, and the MQTT client lifecycle was detected.", "event_received", details)
+
+
+def _has_pin_output(attempt_runtime):
+    compact = attempt_runtime.code.replace(" ", "")
+    return "Pin(2,Pin.OUT" in compact or "Pin(2,machine.Pin.OUT" in compact
 
 
 def _find_telemetry(attempt_runtime, name, value):

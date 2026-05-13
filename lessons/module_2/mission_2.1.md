@@ -1,4 +1,4 @@
-# Lesson 4: Subscribe and Poll Commands
+# Lesson 7: Subscribe and Poll Commands
 
 ## Lesson objective
 Subscribe to an MQTT command topic and poll for incoming messages.

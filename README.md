@@ -61,7 +61,7 @@ Typical message flow:
 This repository is only a scaffold. It contains:
 
 - rewritten course metadata for an MQTT/ESP32 course
-- a compact `lessons-list.json` with 3 teaching modules and 7 beginner lessons
+- a compact `lessons-list.json` with 3 teaching modules and 10 beginner lessons
 - lesson content for the current LED-only lesson set
 - verification handlers that can be connected to `mqtt-worker`
 - example solutions for local debugging and worker smoke tests
@@ -73,4 +73,6 @@ The current draft assumes a progression like this:
 1. 30-second sandbox for trying code
 2. MQTT publish/connect/disconnect basics
 3. Subscribe, poll, and parse JSON commands
-4. Control the ESP32 LED and publish event/state messages
+4. Directly control the ESP32 LED and publish events
+5. Subscribe, poll, and parse JSON commands
+6. Control the ESP32 LED and publish event/state messages

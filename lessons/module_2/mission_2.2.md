@@ -1,4 +1,4 @@
-# Lesson 5: Parse a JSON Command
+# Lesson 8: Parse a JSON Command
 
 ## Lesson objective
 Receive one MQTT command and parse its JSON payload.

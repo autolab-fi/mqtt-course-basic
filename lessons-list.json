@@ -33,14 +33,38 @@
     },
     {
         "name": "Receiving Commands",
-        "description": "Subscribe to commands, poll incoming messages, parse JSON, and control the LED.",
+        "description": "Set a real LED output, publish LED events, subscribe to commands, parse JSON, and control the LED.",
         "sn": 1,
         "str_id": "module_2",
         "lessons": [
             {
+                "str_id": "led_on_event",
+                "url": "https://raw.githubusercontent.com/autolab-fi/mqtt-course-basic/main/lessons/module_2/mission_2.0_led_on_event.md",
+                "sn": 3,
+                "name": "Turn LED On and Report It",
+                "description": "Turn GPIO 2 on and publish a simple LED event.",
+                "template": "import json\nfrom machine import Pin\n\nled = Pin(2, Pin.OUT)\n\n# Turn the LED on and publish an event\n"
+            },
+            {
+                "str_id": "led_off_event",
+                "url": "https://raw.githubusercontent.com/autolab-fi/mqtt-course-basic/main/lessons/module_2/mission_2.0_led_off_event.md",
+                "sn": 4,
+                "name": "Turn LED Off and Report It",
+                "description": "Turn GPIO 2 off and publish a simple LED event.",
+                "template": "import json\nfrom machine import Pin\n\nled = Pin(2, Pin.OUT)\n\n# Turn the LED off and publish an event\n"
+            },
+            {
+                "str_id": "led_command_on_minimal",
+                "url": "https://raw.githubusercontent.com/autolab-fi/mqtt-course-basic/main/lessons/module_2/mission_2.0_led_command_on_minimal.md",
+                "sn": 5,
+                "name": "Minimal LED Command Listener",
+                "description": "Subscribe to one command topic and turn the LED on when a message arrives.",
+                "template": "import time\nfrom machine import Pin\n\nled = Pin(2, Pin.OUT)\nclient = make_mqtt_client()\ncommand_topic = ATTEMPT_TOPIC_ROOT + \"/command\"\n\n# Set a callback, subscribe, and poll with check_msg()\n"
+            },
+            {
                 "str_id": "subscribe_command_poll",
                 "url": "https://raw.githubusercontent.com/autolab-fi/mqtt-course-basic/main/lessons/module_2/mission_2.1.md",
-                "sn": 3,
+                "sn": 6,
                 "name": "Subscribe and Poll Commands",
                 "description": "Subscribe to the attempt command topic and poll incoming MQTT messages for a limited time.",
                 "template": "client = make_mqtt_client()\ncommand_topic = ATTEMPT_TOPIC_ROOT + \"/command\"\ntelemetry_topic = ATTEMPT_TOPIC_ROOT + \"/telemetry\"\n\n# Subscribe and poll with check_msg()\n"
@@ -48,7 +72,7 @@
             {
                 "str_id": "parse_json_command",
                 "url": "https://raw.githubusercontent.com/autolab-fi/mqtt-course-basic/main/lessons/module_2/mission_2.2.md",
-                "sn": 4,
+                "sn": 7,
                 "name": "Parse a JSON Command",
                 "description": "Receive one MQTT command and parse the JSON payload with json.loads().",
                 "template": "import json\n\nclient = make_mqtt_client()\ncommand_topic = ATTEMPT_TOPIC_ROOT + \"/command\"\nevent_topic = ATTEMPT_TOPIC_ROOT + \"/event\"\n\n# Parse the incoming JSON command\n"
@@ -56,7 +80,7 @@
             {
                 "str_id": "led_command_listener",
                 "url": "https://raw.githubusercontent.com/autolab-fi/mqtt-course-basic/main/lessons/module_2/mission_2.3.md",
-                "sn": 5,
+                "sn": 8,
                 "name": "Control the LED from MQTT",
                 "description": "Turn the ESP32 LED on or off from a JSON MQTT command and publish an event.",
                 "template": "import json\nfrom machine import Pin\n\nled = Pin(2, Pin.OUT)\nclient = make_mqtt_client()\n\n# Subscribe to commands, control LED, publish event\n"
@@ -72,7 +96,7 @@
             {
                 "str_id": "led_state_protocol",
                 "url": "https://raw.githubusercontent.com/autolab-fi/mqtt-course-basic/main/lessons/module_3/mission_3.1.md",
-                "sn": 6,
+                "sn": 9,
                 "name": "LED State Protocol",
                 "description": "Support on, off, and toggle commands and publish the final LED state.",
                 "template": "import json\nfrom machine import Pin\n\nled = Pin(2, Pin.OUT)\nclient = make_mqtt_client()\n\n# Implement on/off/toggle and publish state\n"

@@ -1,4 +1,4 @@
-# Lesson 7: LED State Protocol
+# Lesson 10: LED State Protocol
 
 ## Lesson objective
 Implement a tiny IoT command protocol for one LED.

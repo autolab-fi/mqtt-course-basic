@@ -19,7 +19,7 @@
                 "sn": 1,
                 "name": "Publish One JSON Message",
                 "description": "Connect to MQTT and publish one JSON telemetry message to the attempt topic.",
-                "template": "import json\n\nclient = make_mqtt_client()\ntelemetry_topic = ATTEMPT_TOPIC_ROOT + \"/telemetry\"\n\n# Connect and publish one JSON message here\n"
+                "template": "import json\n\nclient = make_mqtt_client()\ntopic = ATTEMPT_TOPIC_ROOT + \"/telemetry\"\n\n# Connect and publish one JSON message here\n"
             },
             {
                 "str_id": "connect_publish_disconnect",

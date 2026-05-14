@@ -7,8 +7,15 @@ Turn the real ESP32 LED on and publish one MQTT event.
 
 ## Introduction
 This is the simplest physical-output task in the course. Your program directly
-sets GPIO 2 high, then publishes an event so the checker can see what your code
+sets GPIO 13 high, then publishes an event so the checker can see what your code
 claims it did.
+
+Use GPIO 13 for the LED in this course. If you are checking the ESP32 board
+layout, these references show where GPIO pins are located:
+
+![ESP32 GPIO reference](https://api.ondroid.org/media/courses/9/images/external/raw.githubusercontent.com/autolab-fi/line-robot-curriculum/main/images/module_2/headlights_2.png)
+
+![ESP32 pin labels](https://api.ondroid.org/media/courses/12/images/57e7a3dccb4e4894821e4cc7a79ea19c.jpeg)
 
 ## Lab architecture
 Your code runs on the real ESP32. The checker cannot read your local variables,
@@ -16,14 +23,14 @@ so your program must publish an MQTT event after changing the LED. That event is
 the device-to-checker confirmation for this small task.
 
 ## MQTT and hardware concepts
-`Pin(2, Pin.OUT)` opens GPIO 2 as an output. `led.value(1)` turns the LED on.
+`Pin(13, Pin.OUT)` opens GPIO 13 as an output. `led.value(1)` turns the LED on.
 The event topic is `ATTEMPT_TOPIC_ROOT + "/event"`. It is used for short reports
 about things that happened on the device.
 
 ## Assignment
 Write a program that:
 
-- creates `Pin(2, Pin.OUT)`
+- creates `Pin(13, Pin.OUT)`
 - turns the LED on with `led.value(1)`
 - connects to MQTT
 - publishes one event to `ATTEMPT_TOPIC_ROOT + "/event"`
@@ -38,20 +45,20 @@ Required event:
 }
 ```
 
-## Minimal solution shape
+## Starter shape
 
 ```python
 import json
 from machine import Pin
 
-led = Pin(2, Pin.OUT)
-led.value(1)
+led = Pin(13, Pin.OUT)
+# TODO: set the LED output high
 
 client = make_mqtt_client()
 topic = ATTEMPT_TOPIC_ROOT + "/event"
 
 client.connect()
-client.publish(topic.encode(), json.dumps({"name": "led", "state": True}).encode())
+# TODO: publish {"name": "led", "state": True}
 client.disconnect()
 ```
 

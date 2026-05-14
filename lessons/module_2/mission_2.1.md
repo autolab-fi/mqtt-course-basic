@@ -52,5 +52,32 @@ Required ready telemetry:
 - Use a limited loop such as `for _ in range(30)`.
 - Do not use an endless `while True` loop in this course task.
 
+## Starter shape
+
+```python
+import json
+import time
+
+client = make_mqtt_client()
+command_topic = ATTEMPT_TOPIC_ROOT + "/command"
+telemetry_topic = ATTEMPT_TOPIC_ROOT + "/telemetry"
+
+
+def on_message(topic, message):
+    print("received", topic, message)
+
+
+client.set_callback(on_message)
+client.connect()
+# TODO: subscribe to command_topic
+# TODO: publish {"name": "command_ready", "value": 1}
+
+for _ in range(30):
+    # TODO: poll MQTT once, then sleep briefly
+    time.sleep_ms(100)
+
+client.disconnect()
+```
+
 ## Conclusion
 You can now subscribe to a command topic and give MQTT time to deliver messages.

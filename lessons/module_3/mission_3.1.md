@@ -21,6 +21,9 @@ event output, and state output. The worker sends a command to the real ESP32. Th
 board updates the LED, publishes an event that describes the change, and publishes
 a state message that describes the final known state.
 
+Use `Pin(13, Pin.OUT)` for the course LED, the same as in the previous LED
+lessons.
+
 ## MQTT protocol concepts
 A protocol is an agreement about message shapes and meanings. Here the command
 protocol uses `target` and `action`, the event protocol uses `name`, `event`, and
@@ -67,6 +70,38 @@ Required event:
   "event": "changed",
   "state": true
 }
+```
+
+## Starter shape
+
+```python
+import json
+import time
+from machine import Pin
+
+led = Pin(13, Pin.OUT)
+client = make_mqtt_client()
+state = {"value": False, "done": False}
+
+
+def on_message(topic, message):
+    command = json.loads(message.decode())
+    action = command.get("action")
+    if command.get("target") != "led":
+        return
+    if action == "on":
+        state["value"] = True
+    elif action == "off":
+        state["value"] = False
+    elif action == "toggle":
+        # TODO: invert state["value"]
+        pass
+    else:
+        return
+    # TODO: update GPIO 13, then publish event and state messages
+
+
+# TODO: subscribe, publish protocol_ready, poll for a command, disconnect.
 ```
 
 ## Conclusion

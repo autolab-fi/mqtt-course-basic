@@ -83,7 +83,7 @@ def _verify_direct_led_event(attempt_runtime, td, *, expected_state, expected_va
         if attempt_runtime.has_runtime_error():
             return _fail(td, _runtime_error_hint(attempt_runtime), "runtime_failed", details)
         if not _has_pin_output(attempt_runtime):
-            return _fail(td, "Create the LED output with led = Pin(2, Pin.OUT).", "code_check_pin", details)
+            return _fail(td, "Create the LED output with led = Pin(13, Pin.OUT).", "code_check_pin", details)
         if expected_value_call not in attempt_runtime.code.replace(" ", ""):
             return _fail(td, "Set the LED to the required value before publishing the event.", "code_check_led_value", details)
         if not attempt_runtime.code_features.get("has_publish"):
@@ -92,6 +92,10 @@ def _verify_direct_led_event(attempt_runtime, td, *, expected_state, expected_va
             return _fail(td, "Publish the LED report to ATTEMPT_TOPIC_ROOT + '/event'.", "code_check_event_topic", details)
         return _fail(td, "LED event was not received. Publish name='led' and the required state.", "event_missing", details)
 
+    if not _has_pin_output(attempt_runtime):
+        return _fail(td, "Create the LED output with led = Pin(13, Pin.OUT).", "code_check_pin", details)
+    if expected_value_call not in attempt_runtime.code.replace(" ", ""):
+        return _fail(td, "Set the LED to the required value before publishing the event.", "code_check_led_value", details)
     if not attempt_runtime.code_features.get("has_connect"):
         return _fail(td, "No MQTT connect() call detected.", "code_check_connect", details)
     if not attempt_runtime.code_features.get("has_disconnect"):
@@ -109,7 +113,7 @@ def _verify_led_command_on_minimal(attempt_runtime, td):
     if attempt_runtime.has_runtime_error():
         return _fail(td, _runtime_error_hint(attempt_runtime), "runtime_failed", details)
     if not _has_pin_output(attempt_runtime):
-        return _fail(td, "Create the LED output with led = Pin(2, Pin.OUT).", "code_check_pin", details)
+        return _fail(td, "Create the LED output with led = Pin(13, Pin.OUT).", "code_check_pin", details)
     if "set_callback(" not in attempt_runtime.code:
         return _fail(td, "Register a callback with client.set_callback(...).", "code_check_callback", details)
     if not attempt_runtime.code_features.get("has_connect"):
@@ -182,6 +186,8 @@ def _verify_led_command_listener(attempt_runtime, td):
 
     if not _checker_command_seen(attempt_runtime):
         return _fail(td, "Checker command was not sent on the attempt command topic.", "checker_command_missing", details)
+    if not _has_pin_output(attempt_runtime):
+        return _fail(td, "Create the LED output with led = Pin(13, Pin.OUT).", "code_check_pin", details)
 
     event_msg = attempt_runtime.find_message(
         topic=attempt_runtime.topic("event"),
@@ -192,6 +198,8 @@ def _verify_led_command_listener(attempt_runtime, td):
     if event_msg is None:
         if attempt_runtime.has_runtime_error():
             return _fail(td, _runtime_error_hint(attempt_runtime), "runtime_failed", details)
+        if not _has_pin_output(attempt_runtime):
+            return _fail(td, "Create the LED output with led = Pin(13, Pin.OUT).", "code_check_pin", details)
         if not _has_json_loads(attempt_runtime):
             return _fail(td, "The LED command is JSON. Decode the message and parse it with json.loads(...).", "code_check_json_loads", details)
         return _fail(td, "LED change event missing after the checker command.", "event_missing", details)
@@ -221,7 +229,7 @@ def _verify_led_command_listener(attempt_runtime, td):
 
 def _has_pin_output(attempt_runtime):
     compact = attempt_runtime.code.replace(" ", "")
-    return "Pin(2,Pin.OUT" in compact or "Pin(2,machine.Pin.OUT" in compact
+    return "Pin(13,Pin.OUT" in compact or "Pin(13,machine.Pin.OUT" in compact
 
 
 def _find_telemetry(attempt_runtime, name, value):

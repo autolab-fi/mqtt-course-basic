@@ -1,7 +1,7 @@
 import json
 from machine import Pin
 
-led = Pin(2, Pin.OUT)
+led = Pin(13, Pin.OUT)
 led.value(1)
 
 client = make_mqtt_client()

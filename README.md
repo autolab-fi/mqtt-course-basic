@@ -46,6 +46,23 @@ Typical message flow:
 - **Event**: a report that something happened.
 - **State**: the final known device state.
 
+## MicroPython MQTT Library
+
+Student programs use MicroPython's lightweight `umqtt.simple` client through the
+lab helper `make_mqtt_client()`. The helper returns a client that is already
+configured for the current attempt, so lessons use the same small API throughout
+the course:
+
+- `connect()` opens the broker connection.
+- `publish(topic, payload)` sends byte payloads to a topic.
+- `set_callback(function)` registers a handler for incoming messages.
+- `subscribe(topic)` asks the broker to deliver command messages.
+- `check_msg()` lets the client process one waiting incoming message.
+- `disconnect()` closes the short lab session cleanly.
+
+The lessons keep topics and JSON payloads explicit because those are the parts
+students must understand to debug real IoT traffic.
+
 ## Repository Structure
 
 - `course-info.json`: main course metadata for the platform

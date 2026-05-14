@@ -23,6 +23,10 @@ to one topic. `json.dumps(...)` turns a Python dictionary into JSON text, and
 `.encode()` converts the text topic and payload into bytes for MicroPython's MQTT
 client.
 
+The helper uses MicroPython's `umqtt.simple` library. It is intentionally small:
+it does not hide the MQTT lifecycle, so your program still needs to connect,
+publish or subscribe, poll incoming messages when needed, and disconnect.
+
 `ATTEMPT_TOPIC_ROOT + "/telemetry"` is the device-to-checker channel for simple
 status data. Telemetry answers the question: "What is the device reporting now?"
 

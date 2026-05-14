@@ -15,14 +15,14 @@ topic. Your code changes the LED and publishes one event. The verifier checks th
 MQTT event from the real board.
 
 ## MQTT and hardware concepts
-`led.value(0)` drives GPIO 2 low, turning the LED off on this board. The JSON
+`led.value(0)` drives GPIO 13 low, turning the LED off on this board. The JSON
 boolean `false` becomes Python `False` in your dictionary before `json.dumps(...)`
 converts it to JSON text.
 
 ## Assignment
 Write a program that:
 
-- creates `Pin(2, Pin.OUT)`
+- creates `Pin(13, Pin.OUT)`
 - turns the LED off with `led.value(0)`
 - connects to MQTT
 - publishes one event to `ATTEMPT_TOPIC_ROOT + "/event"`
@@ -37,20 +37,20 @@ Required event:
 }
 ```
 
-## Minimal solution shape
+## Starter shape
 
 ```python
 import json
 from machine import Pin
 
-led = Pin(2, Pin.OUT)
-led.value(0)
+led = Pin(13, Pin.OUT)
+# TODO: set the LED output low
 
 client = make_mqtt_client()
 topic = ATTEMPT_TOPIC_ROOT + "/event"
 
 client.connect()
-client.publish(topic.encode(), json.dumps({"name": "led", "state": False}).encode())
+# TODO: publish {"name": "led", "state": False}
 client.disconnect()
 ```
 

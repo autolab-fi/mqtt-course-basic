@@ -2,7 +2,7 @@ import json
 import time
 from machine import Pin
 
-led = Pin(2, Pin.OUT)
+led = Pin(13, Pin.OUT)
 client = make_mqtt_client()
 command_topic = ATTEMPT_TOPIC_ROOT + "/command"
 telemetry_topic = ATTEMPT_TOPIC_ROOT + "/telemetry"

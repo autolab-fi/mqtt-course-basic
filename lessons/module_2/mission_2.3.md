@@ -9,7 +9,7 @@ Turn the ESP32 LED on or off from a JSON MQTT command.
 This is the first physical IoT control task. The checker sends a JSON command,
 your program changes the LED, and then your program publishes an event.
 
-Assume the LED is connected to `GPIO 2`.
+Assume the LED is connected to `GPIO 13`.
 
 ## Lab architecture
 This lesson closes the loop between software and physical hardware. The worker
@@ -18,7 +18,7 @@ pin, and the board publishes an event back. The verifier checks the MQTT event,
 and the lab may also show the real board through the video stream.
 
 ## MQTT and hardware concepts
-`machine.Pin(2, Pin.OUT)` gives your code control over GPIO 2 as an output pin.
+`machine.Pin(13, Pin.OUT)` gives your code control over GPIO 13 as an output pin.
 Calling `led.value(1)` drives the pin high, and `led.value(0)` drives it low.
 On this board, that controls the visible LED.
 
@@ -65,6 +65,40 @@ Required event:
   "event": "changed",
   "state": true
 }
+```
+
+## Starter shape
+
+```python
+import json
+import time
+from machine import Pin
+
+led = Pin(13, Pin.OUT)
+client = make_mqtt_client()
+command_topic = ATTEMPT_TOPIC_ROOT + "/command"
+telemetry_topic = ATTEMPT_TOPIC_ROOT + "/telemetry"
+event_topic = ATTEMPT_TOPIC_ROOT + "/event"
+handled = {"done": False}
+
+
+def on_message(topic, message):
+    command = json.loads(message.decode())
+    if command.get("target") != "led":
+        return
+    state = bool(command.get("value"))
+    # TODO: apply state to led with led.value(...)
+    payload = {
+        "name": "led",
+        "event": "changed",
+        # TODO: include the final state
+    }
+    # TODO: publish payload to event_topic
+    handled["done"] = True
+
+
+# TODO: set callback, connect, subscribe, publish led_ready,
+# poll with check_msg(), and disconnect.
 ```
 
 ## Conclusion

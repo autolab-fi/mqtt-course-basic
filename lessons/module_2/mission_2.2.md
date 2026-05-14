@@ -33,6 +33,7 @@ Write a program that:
 - receives a JSON command
 - parses the command with `json.loads(...)`
 - publishes an event containing the parsed action
+- disconnects cleanly
 
 Checker command:
 
@@ -52,6 +53,35 @@ Required event:
   "event": "parsed",
   "action": "set"
 }
+```
+
+## Starter shape
+
+```python
+import json
+import time
+
+client = make_mqtt_client()
+command_topic = ATTEMPT_TOPIC_ROOT + "/command"
+telemetry_topic = ATTEMPT_TOPIC_ROOT + "/telemetry"
+event_topic = ATTEMPT_TOPIC_ROOT + "/event"
+parsed = {"done": False}
+
+
+def on_message(topic, message):
+    text = message.decode()
+    command = json.loads(text)
+    payload = {
+        "name": "command",
+        "event": "parsed",
+        # TODO: copy the action from command
+    }
+    # TODO: publish payload to event_topic
+    parsed["done"] = True
+
+
+# TODO: set callback, connect, subscribe, publish command_ready,
+# poll with check_msg(), and disconnect.
 ```
 
 ## Conclusion

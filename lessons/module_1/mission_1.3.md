@@ -28,6 +28,12 @@ This pattern is important in embedded systems because network sockets, memory,
 and broker sessions are limited resources. Short tasks should release them as
 soon as possible.
 
+The lab uses MicroPython's `umqtt.simple` client underneath the helper
+`make_mqtt_client()`. The helper already knows the broker address, credentials,
+and client id for your attempt, so your code can focus on the normal MQTT calls:
+`connect()`, `publish(...)`, `subscribe(...)`, `check_msg()`, and
+`disconnect()`.
+
 ## Assignment
 Write a program that:
 
@@ -52,6 +58,9 @@ Required payload:
 ## Notes
 - Use `json.dumps(...)` to create the payload.
 - Encode strings before publishing if your client requires bytes.
+- Start from the template from the previous assignment: keep the same
+  `make_mqtt_client()`, telemetry topic, `connect()`, `publish(...)`, and
+  `disconnect()` shape, then change only the payload required here.
 - This task should finish quickly.
 
 ## Conclusion

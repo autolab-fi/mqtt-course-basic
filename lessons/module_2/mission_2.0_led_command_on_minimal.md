@@ -24,7 +24,7 @@ lets the MicroPython MQTT client process waiting messages and call your callback
 ## Assignment
 Write a program that:
 
-- creates `Pin(2, Pin.OUT)`
+- creates `Pin(13, Pin.OUT)`
 - creates an MQTT client
 - sets a callback function
 - connects and subscribes to `ATTEMPT_TOPIC_ROOT + "/command"`
@@ -41,20 +41,21 @@ Checker command:
 }
 ```
 
-## Minimal solution shape
+## Starter shape
 
 ```python
 import time
 from machine import Pin
 
-led = Pin(2, Pin.OUT)
+led = Pin(13, Pin.OUT)
 
 client = make_mqtt_client()
 topic = ATTEMPT_TOPIC_ROOT + "/command"
 
 
 def on_message(topic, message):
-    led.value(1)
+    # TODO: turn the LED on here
+    pass
 
 
 client.set_callback(on_message)
@@ -62,6 +63,7 @@ client.connect()
 client.subscribe(topic.encode())
 
 for _ in range(30):
+    # TODO: let MQTT process one waiting message
     client.check_msg()
     time.sleep_ms(100)
 

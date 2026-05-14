@@ -58,6 +58,9 @@ def verify_attempt(attempt_runtime, td=None):
     if event_msg is None:
         return _fail(td, "LED changed event missing on the event topic.", "event_missing", details)
 
+    if not _has_pin_output(attempt_runtime):
+        return _fail(td, "Create the LED output with led = Pin(13, Pin.OUT).", "code_check_pin", details)
+
     if "toggle" not in attempt_runtime.code:
         return _fail(td, "The final protocol must support the 'toggle' action.", "code_check_toggle", details)
 
@@ -78,3 +81,8 @@ def verify_attempt(attempt_runtime, td=None):
 
 def _fail(td, description, stage, details):
     return td, {"success": False, "description": description, "score": 0, "stage": stage, "details": details}
+
+
+def _has_pin_output(attempt_runtime):
+    compact = attempt_runtime.code.replace(" ", "")
+    return "Pin(13,Pin.OUT" in compact or "Pin(13,machine.Pin.OUT" in compact

@@ -1,7 +1,7 @@
 import time
 from machine import Pin
 
-led = Pin(2, Pin.OUT)
+led = Pin(13, Pin.OUT)
 
 client = make_mqtt_client()
 topic = ATTEMPT_TOPIC_ROOT + "/command"

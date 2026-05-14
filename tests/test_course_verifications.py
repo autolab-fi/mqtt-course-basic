@@ -99,7 +99,7 @@ def test_led_on_event_passes_happy_path():
         code="""
 import json
 from machine import Pin
-led = Pin(2, Pin.OUT)
+led = Pin(13, Pin.OUT)
 led.value(1)
 client = make_mqtt_client()
 client.connect()
@@ -122,7 +122,7 @@ def test_led_off_event_passes_happy_path():
         code="""
 import json
 from machine import Pin
-led = Pin(2, Pin.OUT)
+led = Pin(13, Pin.OUT)
 led.value(0)
 client = make_mqtt_client()
 client.connect()
@@ -145,7 +145,7 @@ def test_led_command_on_minimal_passes_code_shape():
         code="""
 import time
 from machine import Pin
-led = Pin(2, Pin.OUT)
+led = Pin(13, Pin.OUT)
 client = make_mqtt_client()
 topic = ATTEMPT_TOPIC_ROOT + "/command"
 def on_message(topic, message):
@@ -223,6 +223,8 @@ def test_led_command_listener_passes_happy_path():
         module="module_2",
         code="""
 import json
+from machine import Pin
+led = Pin(13, Pin.OUT)
 client = make_mqtt_client()
 client.connect()
 client.subscribe((ATTEMPT_TOPIC_ROOT + "/command").encode())
@@ -245,12 +247,44 @@ client.disconnect()
     assert result["success"] is True
 
 
+def test_led_command_listener_rejects_old_gpio_2():
+    runtime = make_runtime(
+        task="led_command_listener",
+        module="module_2",
+        code="""
+import json
+from machine import Pin
+led = Pin(2, Pin.OUT)
+client = make_mqtt_client()
+client.connect()
+client.subscribe((ATTEMPT_TOPIC_ROOT + "/command").encode())
+client.publish((ATTEMPT_TOPIC_ROOT + "/telemetry").encode(), b'{"name":"led_ready","value":1}')
+for _ in range(10):
+    client.check_msg()
+client.publish((ATTEMPT_TOPIC_ROOT + "/event").encode(), b'{"name":"led","event":"changed","state":true}')
+client.disconnect()
+""",
+        mqtt_messages=[
+            msg("edu/32/2001/telemetry", {"name": "led_ready", "value": 1}),
+            msg("edu/32/2001/event", {"name": "led", "event": "changed", "state": True}),
+        ],
+        checker_commands=[{"topic": "edu/32/2001/command", "payload": {"target": "led"}, "sent_at": 1.5}],
+    )
+
+    _td, result = module_2.verify_attempt(runtime, None)
+
+    assert result["success"] is False
+    assert result["stage"] == "code_check_pin"
+
+
 def test_led_state_protocol_requires_state_and_event():
     runtime = make_runtime(
         task="led_state_protocol",
         module="module_3",
         code="""
 import json
+from machine import Pin
+led = Pin(13, Pin.OUT)
 client = make_mqtt_client()
 client.connect()
 client.subscribe((ATTEMPT_TOPIC_ROOT + "/command").encode())
@@ -274,3 +308,36 @@ client.disconnect()
 
     assert result["success"] is True
     assert module_3.get_verification_config("led_state_protocol")["attempt_timeout_s"] == 30.0
+
+
+def test_led_state_protocol_rejects_old_gpio_2():
+    runtime = make_runtime(
+        task="led_state_protocol",
+        module="module_3",
+        code="""
+import json
+from machine import Pin
+led = Pin(2, Pin.OUT)
+client = make_mqtt_client()
+client.connect()
+client.subscribe((ATTEMPT_TOPIC_ROOT + "/command").encode())
+action = "toggle"
+command = json.loads('{"action":"toggle"}')
+for _ in range(10):
+    client.check_msg()
+client.publish((ATTEMPT_TOPIC_ROOT + "/telemetry").encode(), b'{"name":"protocol_ready","value":1}')
+client.publish((ATTEMPT_TOPIC_ROOT + "/state").encode(), b'{"target":"led","state":true}')
+client.publish((ATTEMPT_TOPIC_ROOT + "/event").encode(), b'{"name":"led","event":"changed","state":true}')
+client.disconnect()
+""",
+        mqtt_messages=[
+            msg("edu/32/2001/telemetry", {"name": "protocol_ready", "value": 1}),
+            msg("edu/32/2001/state", {"target": "led", "state": True}),
+            msg("edu/32/2001/event", {"name": "led", "event": "changed", "state": True}),
+        ],
+    )
+
+    _td, result = module_3.verify_attempt(runtime, None)
+
+    assert result["success"] is False
+    assert result["stage"] == "code_check_pin"

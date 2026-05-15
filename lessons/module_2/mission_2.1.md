@@ -19,8 +19,6 @@ root. Your program subscribes to `.../command`, then publishes ready telemetry.
 The ready message tells the worker that the board is connected and listening.
 Only after that does the worker publish the checker command.
 
-![The ESP32 subscribes first, publishes command_ready telemetry, and then the worker sends a command.](../../images/lessons/lesson-07-ready-handshake.svg)
-
 ## MQTT concepts
 `subscribe(topic)` registers interest in messages from a topic. `set_callback(...)`
 registers the function that should run when a message arrives. With

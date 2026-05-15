@@ -22,8 +22,6 @@ Your code runs on the real ESP32. The checker cannot read your local variables,
 so your program must publish an MQTT event after changing the LED. That event is
 the device-to-checker confirmation for this small task.
 
-![GPIO 13 is set high to turn the LED on, then the ESP32 publishes a LED event.](../../images/lessons/lesson-04-led-on-event.svg)
-
 ## MQTT and hardware concepts
 `Pin(13, Pin.OUT)` opens GPIO 13 as an output. `led.value(1)` turns the LED on.
 The event topic is `ATTEMPT_TOPIC_ROOT + "/event"`. It is used for short reports

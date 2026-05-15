@@ -14,9 +14,10 @@
       .line { stroke: #2563eb; stroke-width: 4; marker-end: url(#arrow); fill: none; }
       text { font-family: Arial, sans-serif; fill: #0f172a; font-size: 18px; }
       .small { font-size: 14px; fill: #475569; }
+      .tiny { font-size: 13px; fill: #475569; }
       .label { font-size: 16px; font-weight: 700; }
-      .head { font-size: 24px; font-weight: 700; }
-      .code { font-family: "Courier New", monospace; font-size: 16px; }
+      .head { font-size: 22px; font-weight: 700; }
+      .code { font-family: "Courier New", monospace; font-size: 15px; }
     </style>
   </defs>
   <rect class="bg" width="960" height="420"/>
@@ -32,8 +33,10 @@
   <text class="small" x="778" y="193">subscribed</text>
   <path class="line" d="M212 176 H390"/>
   <path class="line" d="M562 176 H740"/>
-  <text class="small" x="248" y="150">ATTEMPT_TOPIC_ROOT + "/telemetry"</text>
+  <text class="tiny" x="276" y="142">telemetry topic</text>
+  <text class="tiny" x="248" y="160">ATTEMPT_TOPIC_ROOT + "/telemetry"</text>
   <rect class="json" x="278" y="270" width="404" height="92"/>
   <text class="label" x="306" y="302">Payload</text>
-  <text class="code" x="306" y="333">{"name": "hello", "value": 1}</text>
+  <text class="code" x="306" y="333">{"name": "hello",</text>
+  <text class="code" x="306" y="354"> "value": 1}</text>
 </svg>

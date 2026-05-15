@@ -13,7 +13,7 @@
       text { font-family: Arial, sans-serif; fill: #0f172a; font-size: 18px; }
       .small { font-size: 14px; fill: #475569; }
       .label { font-size: 16px; font-weight: 700; }
-      .head { font-size: 24px; font-weight: 700; }
+      .head { font-size: 22px; font-weight: 700; }
       .num { font-size: 28px; font-weight: 700; fill: #64748b; }
       .code { font-family: "Courier New", monospace; font-size: 15px; fill: #334155; }
     </style>
@@ -23,7 +23,8 @@
   <rect class="step" x="48" y="140" width="180" height="120"/>
   <text class="num" x="72" y="180">1</text>
   <text class="label" x="112" y="178">Create client</text>
-  <text class="code" x="72" y="220">make_mqtt_client()</text>
+  <text class="code" x="72" y="214">make_mqtt</text>
+  <text class="code" x="72" y="234">_client()</text>
   <rect class="step" x="276" y="140" width="180" height="120"/>
   <text class="num" x="300" y="180">2</text>
   <text class="label" x="340" y="178">Connect</text>
@@ -35,9 +36,11 @@
   <rect class="step" x="732" y="140" width="180" height="120"/>
   <text class="num" x="756" y="180">4</text>
   <text class="label" x="796" y="178">Disconnect</text>
-  <text class="code" x="756" y="220">client.disconnect()</text>
+  <text class="code" x="756" y="214">client.</text>
+  <text class="code" x="756" y="234">disconnect()</text>
   <path class="line" d="M228 200 H268"/>
   <path class="line" d="M456 200 H496"/>
   <path class="line" d="M684 200 H724"/>
-  <text class="small" x="262" y="318">Short lab attempts should release broker sessions and board resources.</text>
+  <text class="small" x="300" y="312">Short lab attempts release broker sessions</text>
+  <text class="small" x="344" y="332">and board resources.</text>
 </svg>

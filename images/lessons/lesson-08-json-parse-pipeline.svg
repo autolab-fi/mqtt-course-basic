@@ -13,22 +13,24 @@
       text { font-family: Arial, sans-serif; fill: #0f172a; font-size: 18px; }
       .small { font-size: 14px; fill: #475569; }
       .label { font-size: 16px; font-weight: 700; }
-      .head { font-size: 24px; font-weight: 700; }
-      .code { font-family: "Courier New", monospace; font-size: 14px; }
+      .head { font-size: 22px; font-weight: 700; }
+      .code { font-family: "Courier New", monospace; font-size: 13px; }
     </style>
   </defs>
   <rect class="bg" width="960" height="420"/>
-  <text class="head" x="44" y="52">Lesson 8: MQTT bytes become a Python dictionary</text>
+  <text class="head" x="44" y="52">Lesson 8: bytes to dictionary</text>
   <rect class="box" x="38" y="138" width="190" height="118"/>
   <text class="label" x="82" y="172">MQTT bytes</text>
   <text class="code" x="64" y="208">b'{"action":</text>
   <text class="code" x="64" y="230">"set"}'</text>
   <rect class="box" x="278" y="138" width="190" height="118"/>
   <text class="label" x="326" y="172">Text</text>
-  <text class="code" x="304" y="214">message.decode()</text>
+  <text class="code" x="304" y="206">message</text>
+  <text class="code" x="304" y="224">.decode()</text>
   <rect class="box" x="518" y="138" width="190" height="118"/>
   <text class="label" x="562" y="172">Dictionary</text>
-  <text class="code" x="544" y="214">json.loads(text)</text>
+  <text class="code" x="544" y="206">json.loads</text>
+  <text class="code" x="544" y="224">(text)</text>
   <rect class="event" x="758" y="138" width="166" height="118"/>
   <text class="label" x="804" y="172">Event</text>
   <text class="code" x="784" y="208">"event":</text>
@@ -36,5 +38,6 @@
   <path class="line" d="M228 197 H270"/>
   <path class="line" d="M468 197 H510"/>
   <path class="line" d="M708 197 H750"/>
-  <text class="small" x="248" y="326">MQTT only transports the payload. Your code decides that the bytes contain JSON.</text>
+  <text class="small" x="302" y="318">MQTT transports bytes.</text>
+  <text class="small" x="252" y="338">Your code decides they contain JSON.</text>
 </svg>

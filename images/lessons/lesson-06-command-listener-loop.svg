@@ -15,12 +15,12 @@
       text { font-family: Arial, sans-serif; fill: #0f172a; font-size: 18px; }
       .small { font-size: 14px; fill: #475569; }
       .label { font-size: 16px; font-weight: 700; }
-      .head { font-size: 24px; font-weight: 700; }
+      .head { font-size: 22px; font-weight: 700; }
       .code { font-family: "Courier New", monospace; font-size: 15px; }
     </style>
   </defs>
   <rect class="bg" width="960" height="420"/>
-  <text class="head" x="44" y="52">Lesson 6: callback runs when check_msg sees a command</text>
+  <text class="head" x="44" y="52">Lesson 6: check_msg runs the callback</text>
   <rect class="box" x="74" y="138" width="178" height="104"/>
   <text class="label" x="118" y="174">Subscribe</text>
   <text class="small" x="104" y="204">.../command</text>
@@ -37,5 +37,5 @@
   <path class="line" d="M496 190 H554"/>
   <path class="line" d="M740 190 H774"/>
   <path class="loop" d="M407 242 C407 306 168 306 168 248"/>
-  <text class="small" x="238" y="330">The loop is bounded: for _ in range(30)</text>
+  <text class="small" x="302" y="330">Bounded loop: for _ in range(30)</text>
 </svg>

@@ -11,8 +11,8 @@
     text { font-family: Arial, sans-serif; fill: #0f172a; font-size: 18px; }
     .small { font-size: 14px; fill: #475569; }
     .label { font-size: 16px; font-weight: 700; }
-    .head { font-size: 24px; font-weight: 700; }
-    .code { font-family: "Courier New", monospace; font-size: 16px; }
+    .head { font-size: 22px; font-weight: 700; }
+    .code { font-family: "Courier New", monospace; font-size: 15px; }
   </style>
   <rect class="bg" width="960" height="420"/>
   <text class="head" x="44" y="52">Lesson 5: GPIO low means LED off</text>
@@ -28,5 +28,6 @@
   <circle class="led-off" cx="622" cy="232" r="28"/>
   <text class="code" x="670" y="218">led.value(0)</text>
   <text class="code" x="670" y="248">"state": false</text>
-  <text class="small" x="316" y="370">The event reports the state after the GPIO output is changed.</text>
+  <text class="small" x="356" y="362">The event reports state</text>
+  <text class="small" x="360" y="382">after GPIO changes.</text>
 </svg>

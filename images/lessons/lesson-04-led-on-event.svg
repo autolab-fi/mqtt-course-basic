@@ -16,8 +16,8 @@
       text { font-family: Arial, sans-serif; fill: #0f172a; font-size: 18px; }
       .small { font-size: 14px; fill: #475569; }
       .label { font-size: 16px; font-weight: 700; }
-      .head { font-size: 24px; font-weight: 700; }
-      .code { font-family: "Courier New", monospace; font-size: 16px; }
+      .head { font-size: 22px; font-weight: 700; }
+      .code { font-family: "Courier New", monospace; font-size: 15px; }
     </style>
   </defs>
   <rect class="bg" width="960" height="420"/>

@@ -23,12 +23,12 @@
       text { font-family: Arial, sans-serif; fill: #0f172a; font-size: 18px; }
       .small { font-size: 14px; fill: #475569; }
       .label { font-size: 16px; font-weight: 700; }
-      .head { font-size: 24px; font-weight: 700; }
+      .head { font-size: 22px; font-weight: 700; }
       .code { font-family: "Courier New", monospace; font-size: 14px; }
     </style>
   </defs>
   <rect class="bg" width="960" height="420"/>
-  <text class="head" x="44" y="52">Lesson 10: command input, event history, final state</text>
+  <text class="head" x="44" y="52">Lesson 10: command, event, state</text>
   <rect class="command" x="58" y="146" width="206" height="116"/>
   <text class="label" x="102" y="180">Command</text>
   <text class="code" x="92" y="214">action: on</text>
@@ -40,12 +40,14 @@
   <text class="small" x="424" y="248">publish reports</text>
   <rect class="event" x="704" y="98" width="196" height="104"/>
   <text class="label" x="752" y="132">Event</text>
-  <text class="code" x="738" y="166">changed happened</text>
+  <text class="code" x="738" y="158">changed</text>
+  <text class="code" x="738" y="178">happened</text>
   <rect class="state" x="704" y="244" width="196" height="104"/>
   <text class="label" x="756" y="278">State</text>
   <text class="code" x="738" y="312">true now</text>
   <path class="orange" d="M264 204 H368"/>
   <path class="green" d="M584 178 C628 150 652 150 696 150"/>
   <path class="purple" d="M584 230 C628 294 652 296 696 296"/>
-  <text class="small" x="386" y="344">Events say what happened. State says what is true after the command.</text>
+  <text class="small" x="400" y="338">Events say what happened.</text>
+  <text class="small" x="398" y="358">State says what is true now.</text>
 </svg>

@@ -17,12 +17,12 @@
       text { font-family: Arial, sans-serif; fill: #0f172a; font-size: 18px; }
       .small { font-size: 14px; fill: #475569; }
       .label { font-size: 16px; font-weight: 700; }
-      .head { font-size: 24px; font-weight: 700; }
-      .code { font-family: "Courier New", monospace; font-size: 15px; }
+      .head { font-size: 22px; font-weight: 700; }
+      .code { font-family: "Courier New", monospace; font-size: 13px; }
     </style>
   </defs>
   <rect class="bg" width="960" height="420"/>
-  <text class="head" x="44" y="52">Lesson 7: ready handshake prevents missed commands</text>
+  <text class="head" x="44" y="52">Lesson 7: ready before command</text>
   <rect class="actor" x="96" y="94" width="190" height="58"/>
   <text class="label" x="142" y="130">ESP32 program</text>
   <rect class="actor" x="674" y="94" width="190" height="58"/>
@@ -31,8 +31,10 @@
   <line class="life" x1="769" y1="152" x2="769" y2="360"/>
   <text class="small" x="228" y="190">1. subscribe(.../command)</text>
   <path class="blue" d="M210 222 H744"/>
-  <text class="code" x="324" y="210">telemetry: {"name": "command_ready", "value": 1}</text>
+  <text class="code" x="324" y="204">telemetry</text>
+  <text class="code" x="324" y="221">{"name": "command_ready", "value": 1}</text>
   <path class="orange" d="M744 286 H210"/>
-  <text class="code" x="344" y="274">command: {"target": "led", "action": "on"}</text>
-  <text class="small" x="228" y="336">3. check_msg() polls for the incoming command</text>
+  <text class="code" x="344" y="268">command</text>
+  <text class="code" x="344" y="285">{"target": "led", "action": "on"}</text>
+  <text class="small" x="228" y="336">3. check_msg() polls for the command</text>
 </svg>

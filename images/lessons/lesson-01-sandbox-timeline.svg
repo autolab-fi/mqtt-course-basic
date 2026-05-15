@@ -16,8 +16,9 @@
       .dash { stroke: #64748b; stroke-width: 2; stroke-dasharray: 7 7; fill: none; }
       text { font-family: Arial, sans-serif; fill: #0f172a; font-size: 18px; }
       .small { font-size: 14px; fill: #475569; }
+      .tiny { font-size: 13px; fill: #475569; }
       .label { font-size: 15px; font-weight: 700; }
-      .head { font-size: 24px; font-weight: 700; }
+      .head { font-size: 22px; font-weight: 700; }
     </style>
   </defs>
   <rect class="bg" width="960" height="420"/>
@@ -40,9 +41,11 @@
   <text class="small" x="476" y="132">collect</text>
   <path class="line" d="M718 149 H782"/>
   <text class="small" x="728" y="132">guard</text>
-  <rect class="panel" x="84" y="256" width="792" height="94"/>
-  <text class="label" x="126" y="292">Result shown to student</text>
-  <text x="126" y="323">stdout, runtime status, observed MQTT messages, error or timeout reason</text>
+  <rect class="panel" x="84" y="250" width="792" height="124"/>
+  <text class="label" x="126" y="284">Result shown to student</text>
+  <text class="tiny" x="126" y="314">stdout, runtime status</text>
+  <text class="tiny" x="126" y="334">observed MQTT messages</text>
+  <text class="tiny" x="126" y="354">error or timeout reason</text>
   <path class="dash" d="M378 190 V256"/>
   <path class="dash" d="M640 190 V256"/>
 </svg>

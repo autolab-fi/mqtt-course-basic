@@ -24,7 +24,7 @@ a state message that describes the final known state.
 Use `Pin(13, Pin.OUT)` for the course LED, the same as in the previous LED
 lessons.
 
-![The command channel requests an LED action; the ESP32 updates hardware, publishes an event, and publishes final state.](../../images/lessons/lesson-10-state-protocol.svg)
+![The command channel requests an LED action; the ESP32 updates hardware, publishes an event, and publishes final state.](https://raw.githubusercontent.com/autolab-fi/mqtt-course-basic/main/images/lessons/lesson-10-state-protocol.svg)
 
 ## MQTT protocol concepts
 A protocol is an agreement about message shapes and meanings. Here the command

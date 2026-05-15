@@ -16,7 +16,7 @@ board. A clean `disconnect()` tells the broker that this client session is done
 and helps the worker distinguish a completed attempt from code that is still
 running or stuck.
 
-![A short MQTT program creates a client, connects, publishes one message, and disconnects cleanly.](../../images/lessons/lesson-03-mqtt-lifecycle.svg)
+![A short MQTT program creates a client, connects, publishes one message, and disconnects cleanly.](https://raw.githubusercontent.com/autolab-fi/mqtt-course-basic/main/images/lessons/lesson-03-mqtt-lifecycle.svg)
 
 ## MQTT concepts
 The basic MQTT lifecycle is:

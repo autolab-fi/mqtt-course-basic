@@ -16,7 +16,7 @@ The worker starts your program and then publishes a checker command to
 For this minimal lesson, the important part is learning the subscribe/callback
 shape before parsing JSON commands.
 
-![The ESP32 subscribes to the command topic, polls with check_msg, runs the callback, and turns the LED on.](../../images/lessons/lesson-06-command-listener-loop.svg)
+![The ESP32 subscribes to the command topic, polls with check_msg, runs the callback, and turns the LED on.](https://raw.githubusercontent.com/autolab-fi/mqtt-course-basic/main/images/lessons/lesson-06-command-listener-loop.svg)
 
 ## MQTT concepts
 `set_callback(...)` tells the MQTT client which function should handle incoming

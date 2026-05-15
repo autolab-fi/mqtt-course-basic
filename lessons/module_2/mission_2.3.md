@@ -17,6 +17,8 @@ publishes a command, the ESP32 receives it over MQTT, your code changes a GPIO
 pin, and the board publishes an event back. The verifier checks the MQTT event,
 and the lab may also show the real board through the video stream.
 
+![The worker sends a JSON LED command, the ESP32 parses it, changes GPIO 13, and publishes a LED changed event.](../../images/lessons/lesson-09-led-command-loop.svg)
+
 ## MQTT and hardware concepts
 `machine.Pin(13, Pin.OUT)` gives your code control over GPIO 13 as an output pin.
 Calling `led.value(1)` drives the pin high, and `led.value(0)` drives it low.

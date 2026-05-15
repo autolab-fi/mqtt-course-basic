@@ -15,6 +15,8 @@ your program as `ATTEMPT_TOPIC_ROOT`. This keeps your messages separate from oth
 students and from your previous attempts. The verifier subscribes to your
 telemetry topic and waits for the JSON payload from the real ESP32.
 
+![The ESP32 publishes one JSON telemetry payload through the MQTT broker to the checker.](../../images/lessons/lesson-02-telemetry-publish.svg)
+
 ## MQTT concepts
 `make_mqtt_client()` returns a preconfigured MQTT client for the lab broker. You
 call `connect()` before publishing because MQTT messages can only be sent after

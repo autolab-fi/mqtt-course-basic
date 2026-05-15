@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">Publishing one JSON telemetry message</title>
+  <desc id="desc">The ESP32 publishes one JSON payload to the telemetry topic through the MQTT broker, and the checker observes it.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .esp { fill: #e0f2fe; stroke: #0284c7; stroke-width: 2; rx: 14; }
+      .broker { fill: #f1f5f9; stroke: #475569; stroke-width: 2; rx: 14; }
+      .checker { fill: #fef3c7; stroke: #d97706; stroke-width: 2; rx: 14; }
+      .json { fill: #eff6ff; stroke: #2563eb; stroke-width: 2; rx: 12; }
+      .line { stroke: #2563eb; stroke-width: 4; marker-end: url(#arrow); fill: none; }
+      text { font-family: Arial, sans-serif; fill: #0f172a; font-size: 18px; }
+      .small { font-size: 14px; fill: #475569; }
+      .label { font-size: 16px; font-weight: 700; }
+      .head { font-size: 24px; font-weight: 700; }
+      .code { font-family: "Courier New", monospace; font-size: 16px; }
+    </style>
+  </defs>
+  <rect class="bg" width="960" height="420"/>
+  <text class="head" x="44" y="52">Lesson 2: one telemetry publish</text>
+  <rect class="esp" x="52" y="130" width="160" height="92"/>
+  <text class="label" x="102" y="166">ESP32</text>
+  <text class="small" x="84" y="193">student code</text>
+  <rect class="broker" x="398" y="130" width="164" height="92"/>
+  <text class="label" x="430" y="166">MQTT broker</text>
+  <text class="small" x="425" y="193">routes message</text>
+  <rect class="checker" x="748" y="130" width="160" height="92"/>
+  <text class="label" x="795" y="166">Checker</text>
+  <text class="small" x="778" y="193">subscribed</text>
+  <path class="line" d="M212 176 H390"/>
+  <path class="line" d="M562 176 H740"/>
+  <text class="small" x="248" y="150">ATTEMPT_TOPIC_ROOT + "/telemetry"</text>
+  <rect class="json" x="278" y="270" width="404" height="92"/>
+  <text class="label" x="306" y="302">Payload</text>
+  <text class="code" x="306" y="333">{"name": "hello", "value": 1}</text>
+</svg>

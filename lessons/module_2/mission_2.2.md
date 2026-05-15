@@ -16,6 +16,8 @@ The worker acts like a small control application. After your ESP32 publishes
 topic. Your program reads that command on the real board, parses it, and reports
 what it understood by publishing an event.
 
+![MQTT delivers bytes; message.decode turns them into text; json.loads creates a Python dictionary; then the program publishes a parsed event.](../../images/lessons/lesson-08-json-parse-pipeline.svg)
+
 ## MQTT concepts
 MQTT does not know that a payload is JSON. It only transports bytes. That is why
 the callback receives a byte string. `message.decode()` converts bytes to text,

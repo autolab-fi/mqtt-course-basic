@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">30-second sandbox run timeline</title>
+  <desc id="desc">The worker uploads code to a real ESP32, starts it, collects output and MQTT messages, and stops waiting after 30 seconds.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#334155"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .panel { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 14; }
+      .actor { fill: #e0f2fe; stroke: #0284c7; stroke-width: 2; rx: 12; }
+      .worker { fill: #fef3c7; stroke: #d97706; stroke-width: 2; rx: 12; }
+      .topic { fill: #f1f5f9; stroke: #64748b; stroke-width: 2; rx: 10; }
+      .timeout { fill: #fee2e2; stroke: #dc2626; stroke-width: 2; rx: 10; }
+      .line { stroke: #334155; stroke-width: 3; marker-end: url(#arrow); fill: none; }
+      .dash { stroke: #64748b; stroke-width: 2; stroke-dasharray: 7 7; fill: none; }
+      text { font-family: Arial, sans-serif; fill: #0f172a; font-size: 18px; }
+      .small { font-size: 14px; fill: #475569; }
+      .label { font-size: 15px; font-weight: 700; }
+      .head { font-size: 24px; font-weight: 700; }
+    </style>
+  </defs>
+  <rect class="bg" width="960" height="420"/>
+  <text class="head" x="44" y="52">Lesson 1: safe run on real hardware</text>
+  <rect class="worker" x="46" y="108" width="150" height="82"/>
+  <text class="label" x="82" y="142">Worker</text>
+  <text class="small" x="70" y="166">upload code</text>
+  <rect class="actor" x="300" y="108" width="156" height="82"/>
+  <text class="label" x="343" y="142">ESP32</text>
+  <text class="small" x="327" y="166">runs snippet</text>
+  <rect class="topic" x="560" y="108" width="158" height="82"/>
+  <text class="label" x="593" y="142">Runtime</text>
+  <text class="small" x="596" y="166">prints + MQTT</text>
+  <rect class="timeout" x="790" y="108" width="126" height="82"/>
+  <text class="label" x="810" y="142">30 sec</text>
+  <text class="small" x="815" y="166">limit</text>
+  <path class="line" d="M196 149 H292"/>
+  <text class="small" x="222" y="132">start</text>
+  <path class="line" d="M456 149 H552"/>
+  <text class="small" x="476" y="132">collect</text>
+  <path class="line" d="M718 149 H782"/>
+  <text class="small" x="728" y="132">guard</text>
+  <rect class="panel" x="84" y="256" width="792" height="94"/>
+  <text class="label" x="126" y="292">Result shown to student</text>
+  <text x="126" y="323">stdout, runtime status, observed MQTT messages, error or timeout reason</text>
+  <path class="dash" d="M378 190 V256"/>
+  <path class="dash" d="M640 190 V256"/>
+</svg>

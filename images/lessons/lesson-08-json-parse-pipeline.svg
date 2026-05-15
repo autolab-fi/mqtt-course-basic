@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">Parsing JSON from an MQTT byte payload</title>
+  <desc id="desc">MQTT delivers bytes, message.decode turns them into text, json.loads creates a dictionary, and the program publishes a parsed event.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#334155"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 14; }
+      .event { fill: #ecfdf5; stroke: #16a34a; stroke-width: 2; rx: 14; }
+      .line { stroke: #334155; stroke-width: 3; marker-end: url(#arrow); fill: none; }
+      text { font-family: Arial, sans-serif; fill: #0f172a; font-size: 18px; }
+      .small { font-size: 14px; fill: #475569; }
+      .label { font-size: 16px; font-weight: 700; }
+      .head { font-size: 24px; font-weight: 700; }
+      .code { font-family: "Courier New", monospace; font-size: 14px; }
+    </style>
+  </defs>
+  <rect class="bg" width="960" height="420"/>
+  <text class="head" x="44" y="52">Lesson 8: MQTT bytes become a Python dictionary</text>
+  <rect class="box" x="38" y="138" width="190" height="118"/>
+  <text class="label" x="82" y="172">MQTT bytes</text>
+  <text class="code" x="64" y="208">b'{"action":</text>
+  <text class="code" x="64" y="230">"set"}'</text>
+  <rect class="box" x="278" y="138" width="190" height="118"/>
+  <text class="label" x="326" y="172">Text</text>
+  <text class="code" x="304" y="214">message.decode()</text>
+  <rect class="box" x="518" y="138" width="190" height="118"/>
+  <text class="label" x="562" y="172">Dictionary</text>
+  <text class="code" x="544" y="214">json.loads(text)</text>
+  <rect class="event" x="758" y="138" width="166" height="118"/>
+  <text class="label" x="804" y="172">Event</text>
+  <text class="code" x="784" y="208">"event":</text>
+  <text class="code" x="784" y="230">"parsed"</text>
+  <path class="line" d="M228 197 H270"/>
+  <path class="line" d="M468 197 H510"/>
+  <path class="line" d="M708 197 H750"/>
+  <text class="small" x="248" y="326">MQTT only transports the payload. Your code decides that the bytes contain JSON.</text>
+</svg>

@@ -19,6 +19,8 @@ runtime channel so the checker can show what happened.
 The 30-second limit protects the shared hardware. If a program waits forever, the
 worker can stop waiting and keep the board available for the next attempt.
 
+![The worker uploads code to a real ESP32, collects output and MQTT messages, and stops waiting after 30 seconds.](../../images/lessons/lesson-01-sandbox-timeline.svg)
+
 ## MQTT concepts
 MQTT is a lightweight message system used by many IoT devices. A device connects
 to a broker, publishes messages to topics, and can subscribe to topics to receive

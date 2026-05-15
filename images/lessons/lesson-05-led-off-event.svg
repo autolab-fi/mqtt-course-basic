@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">GPIO value mapping for LED on and off</title>
+  <desc id="desc">GPIO value 1 maps to LED on and JSON state true. GPIO value 0 maps to LED off and JSON state false.</desc>
+  <style>
+    .bg { fill: #f8fafc; }
+    .card { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 14; }
+    .on { fill: #fef3c7; stroke: #ca8a04; stroke-width: 2; rx: 12; }
+    .off { fill: #f1f5f9; stroke: #64748b; stroke-width: 2; rx: 12; }
+    .led-on { fill: #facc15; stroke: #ca8a04; stroke-width: 3; }
+    .led-off { fill: #94a3b8; stroke: #475569; stroke-width: 3; }
+    text { font-family: Arial, sans-serif; fill: #0f172a; font-size: 18px; }
+    .small { font-size: 14px; fill: #475569; }
+    .label { font-size: 16px; font-weight: 700; }
+    .head { font-size: 24px; font-weight: 700; }
+    .code { font-family: "Courier New", monospace; font-size: 16px; }
+  </style>
+  <rect class="bg" width="960" height="420"/>
+  <text class="head" x="44" y="52">Lesson 5: GPIO low means LED off</text>
+  <rect class="card" x="74" y="110" width="360" height="220"/>
+  <text class="label" x="118" y="150">Previous mapping</text>
+  <rect class="on" x="118" y="178" width="270" height="110"/>
+  <circle class="led-on" cx="170" cy="232" r="28"/>
+  <text class="code" x="218" y="218">led.value(1)</text>
+  <text class="code" x="218" y="248">"state": true</text>
+  <rect class="card" x="526" y="110" width="360" height="220"/>
+  <text class="label" x="570" y="150">This lesson</text>
+  <rect class="off" x="570" y="178" width="270" height="110"/>
+  <circle class="led-off" cx="622" cy="232" r="28"/>
+  <text class="code" x="670" y="218">led.value(0)</text>
+  <text class="code" x="670" y="248">"state": false</text>
+  <text class="small" x="316" y="370">The event reports the state after the GPIO output is changed.</text>
+</svg>

@@ -14,6 +14,8 @@ The worker uploads your code to the ESP32 and subscribes to your attempt event
 topic. Your code changes the LED and publishes one event. The verifier checks the
 MQTT event from the real board.
 
+![GPIO value 1 means LED on and state true, while GPIO value 0 means LED off and state false.](../../images/lessons/lesson-05-led-off-event.svg)
+
 ## MQTT and hardware concepts
 `led.value(0)` drives GPIO 13 low, turning the LED off on this board. The JSON
 boolean `false` becomes Python `False` in your dictionary before `json.dumps(...)`

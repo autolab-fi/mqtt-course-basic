@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">LED command, event, and state protocol</title>
+  <desc id="desc">The command channel requests on, off, or toggle. The ESP32 changes hardware, publishes an event, and publishes final state.</desc>
+  <defs>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#f97316"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#7c3aed"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .command { fill: #fff7ed; stroke: #f97316; stroke-width: 2; rx: 14; }
+      .device { fill: #e0f2fe; stroke: #0284c7; stroke-width: 2; rx: 14; }
+      .event { fill: #ecfdf5; stroke: #16a34a; stroke-width: 2; rx: 14; }
+      .state { fill: #f5f3ff; stroke: #7c3aed; stroke-width: 2; rx: 14; }
+      .orange { stroke: #f97316; stroke-width: 4; marker-end: url(#arrow-orange); fill: none; }
+      .green { stroke: #16a34a; stroke-width: 4; marker-end: url(#arrow-green); fill: none; }
+      .purple { stroke: #7c3aed; stroke-width: 4; marker-end: url(#arrow-purple); fill: none; }
+      text { font-family: Arial, sans-serif; fill: #0f172a; font-size: 18px; }
+      .small { font-size: 14px; fill: #475569; }
+      .label { font-size: 16px; font-weight: 700; }
+      .head { font-size: 24px; font-weight: 700; }
+      .code { font-family: "Courier New", monospace; font-size: 14px; }
+    </style>
+  </defs>
+  <rect class="bg" width="960" height="420"/>
+  <text class="head" x="44" y="52">Lesson 10: command input, event history, final state</text>
+  <rect class="command" x="58" y="146" width="206" height="116"/>
+  <text class="label" x="102" y="180">Command</text>
+  <text class="code" x="92" y="214">action: on</text>
+  <text class="code" x="92" y="238">off, toggle</text>
+  <rect class="device" x="376" y="128" width="208" height="152"/>
+  <text class="label" x="426" y="164">ESP32 LED</text>
+  <text class="small" x="424" y="196">apply action</text>
+  <text class="small" x="424" y="222">remember state</text>
+  <text class="small" x="424" y="248">publish reports</text>
+  <rect class="event" x="704" y="98" width="196" height="104"/>
+  <text class="label" x="752" y="132">Event</text>
+  <text class="code" x="738" y="166">changed happened</text>
+  <rect class="state" x="704" y="244" width="196" height="104"/>
+  <text class="label" x="756" y="278">State</text>
+  <text class="code" x="738" y="312">true now</text>
+  <path class="orange" d="M264 204 H368"/>
+  <path class="green" d="M584 178 C628 150 652 150 696 150"/>
+  <path class="purple" d="M584 230 C628 294 652 296 696 296"/>
+  <text class="small" x="386" y="344">Events say what happened. State says what is true after the command.</text>
+</svg>

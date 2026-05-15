@@ -158,3 +158,132 @@ For a more robust course runtime, firmware should later support:
 - stopping student code explicitly
 - worker-triggered cleanup after timeout
 - safe board reset if student code enters an infinite loop
+
+## Lesson Visuals Plan
+
+Goal:
+
+- make every lesson visually explain the one new concept it introduces
+- reuse a consistent ESP32/MQTT visual language across the course
+- prefer diagrams, message-flow graphics, and small UI-like protocol examples
+  over decorative images
+- keep hardware visuals concrete: ESP32 board, GPIO 13 LED, MQTT broker,
+  worker/checker, and attempt topics
+
+Shared visual system:
+
+- Use the same four actors in architecture diagrams:
+  - student code on ESP32
+  - MQTT broker
+  - worker/checker
+  - attempt topic namespace
+- Use consistent colors by message type:
+  - telemetry: blue
+  - command: orange
+  - event: green
+  - state: purple
+- Show MQTT topics as labels on arrows, not as long paragraphs.
+- Show JSON payloads as compact code cards beside the relevant arrow.
+- Keep diagrams simple enough to fit inside a lesson page without horizontal
+  scrolling.
+- Store final assets under `images/lessons/` using stable names such as
+  `lesson-01-sandbox-flow.png`.
+
+Recommended assets by lesson:
+
+1. `Lesson 1: 30-Second MQTT Sandbox`
+   - Asset: sandbox run timeline.
+   - Format: horizontal timeline from upload to run, collect output, timeout or
+     finish.
+   - Purpose: explain that the code runs on a real ESP32 and the 30-second limit
+     protects shared hardware.
+   - Suggested filename: `images/lessons/lesson-01-sandbox-timeline.png`.
+
+2. `Lesson 2: Publish One JSON Message`
+   - Asset: first publish path.
+   - Format: ESP32 publishes one telemetry arrow through the broker to the
+     checker, with the JSON payload shown next to the arrow.
+   - Purpose: make topic, payload, JSON, and `publish(...)` visible as one
+     action.
+   - Suggested filename: `images/lessons/lesson-02-telemetry-publish.png`.
+
+3. `Lesson 3: Connect, Publish, Disconnect`
+   - Asset: MQTT lifecycle strip.
+   - Format: four-step sequence: create client, connect, publish, disconnect.
+   - Purpose: reinforce the complete short-program lifecycle and why cleanup
+     matters.
+   - Suggested filename: `images/lessons/lesson-03-mqtt-lifecycle.png`.
+
+4. `Lesson 4: Turn LED On and Report It`
+   - Asset: GPIO-to-event diagram.
+   - Format: ESP32 pin GPIO 13 lights an LED, then an event message travels to
+     the checker.
+   - Purpose: connect physical output with MQTT confirmation.
+   - Suggested filename: `images/lessons/lesson-04-led-on-event.png`.
+
+5. `Lesson 5: Turn LED Off and Report It`
+   - Asset: on/off GPIO comparison.
+   - Format: split diagram showing `led.value(1)` as LED on and `led.value(0)`
+     as LED off, with the required false event payload.
+   - Purpose: make the boolean and GPIO value mapping obvious.
+   - Suggested filename: `images/lessons/lesson-05-led-off-event.png`.
+
+6. `Lesson 6: Minimal LED Command Listener`
+   - Asset: subscribe-callback-poll loop.
+   - Format: loop diagram: subscribe to command, checker sends command,
+     `check_msg()` runs callback, callback turns LED on.
+   - Purpose: explain why receiving MQTT messages needs both a callback and
+     polling in `umqtt.simple`.
+   - Suggested filename: `images/lessons/lesson-06-command-listener-loop.png`.
+
+7. `Lesson 7: Subscribe and Poll Commands`
+   - Asset: ready-before-command handshake.
+   - Format: sequence diagram: ESP32 subscribes, publishes `command_ready`,
+     worker sends command, ESP32 polls with `check_msg()`.
+   - Purpose: show why the ready telemetry prevents the checker from sending a
+     command before the board is listening.
+   - Suggested filename: `images/lessons/lesson-07-ready-handshake.png`.
+
+8. `Lesson 8: Parse a JSON Command`
+   - Asset: bytes-to-dictionary transformation.
+   - Format: pipeline from MQTT payload bytes to decoded text to
+     `json.loads(...)` dictionary to parsed event.
+   - Purpose: make clear that MQTT transports bytes and JSON parsing is a
+     separate program step.
+   - Suggested filename: `images/lessons/lesson-08-json-parse-pipeline.png`.
+
+9. `Lesson 9: Control the LED from MQTT`
+   - Asset: full command-action-event loop.
+   - Format: worker sends JSON command, ESP32 parses it, GPIO 13 changes LED,
+     ESP32 publishes `led changed` event.
+   - Purpose: show the first complete physical IoT control loop.
+   - Suggested filename: `images/lessons/lesson-09-led-command-loop.png`.
+
+10. `Lesson 10: LED State Protocol`
+    - Asset: protocol map for command, event, and state.
+    - Format: compact protocol diagram with three channels:
+      `command -> hardware action -> event + state`.
+    - Purpose: explain the difference between event history and final known
+      state.
+    - Suggested filename: `images/lessons/lesson-10-state-protocol.png`.
+
+Additional course-level visuals:
+
+- Course hero image: real ESP32 board connected to an MQTT broker/cloud concept,
+  with one visible LED as the central hardware cue.
+- Module 1 overview: MQTT basics map with broker, topics, publish, and lifecycle.
+- Module 2 overview: command receiving map with subscribe, callback, polling,
+  JSON command, and LED output.
+- Module 3 overview: small device protocol map showing command, event, and
+  state as separate channels.
+
+Implementation tasks:
+
+1. Create `images/lessons/`.
+2. Produce a first low-fidelity diagram set as SVG or PNG drafts.
+3. Add each image to the matching lesson near `Lab architecture` or
+   `MQTT concepts`, depending on where the concept is introduced.
+4. Review mobile rendering in the Ondroid lesson page so diagrams stay readable.
+5. Replace draft diagrams with final visual assets after content review.
+6. Add alt text for every image that states the concept, not just the visual
+   appearance.

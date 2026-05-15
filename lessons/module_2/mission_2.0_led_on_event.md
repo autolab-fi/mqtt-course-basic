@@ -13,9 +13,9 @@ claims it did.
 Use GPIO 13 for the LED in this course. If you are checking the ESP32 board
 layout, these references show where GPIO pins are located:
 
-![ESP32 GPIO reference](https://api.ondroid.org/media/courses/9/images/external/raw.githubusercontent.com/autolab-fi/line-robot-curriculum/main/images/module_2/headlights_2.png)
+![ESP32 GPIO reference](https://api.ondroid.org/media/courses/12/images/a0fb72a9f51d47019b0bb4397a3de285.png)
 
-![ESP32 pin labels](https://api.ondroid.org/media/courses/12/images/57e7a3dccb4e4894821e4cc7a79ea19c.jpeg)
+![ESP32 pin labels](https://api.ondroid.org/media/courses/12/images/ab264aaca8a04e60bd1bf4156bae934c.png)
 
 ## Lab architecture
 Your code runs on the real ESP32. The checker cannot read your local variables,

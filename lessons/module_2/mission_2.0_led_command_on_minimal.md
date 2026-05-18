@@ -1,14 +1,14 @@
-# Lesson 6: Minimal LED Command Listener
+# Lesson 6: Minimal LEDs Command Listener
 
 ## Lesson objective
-Receive one MQTT command and turn the LED on.
+Receive one MQTT command and turn the LEDs on.
 
 ![Beginner](https://img.shields.io/badge/Difficulty-Beginner-green)
 
 ## Introduction
 This is the smallest command-listener task. The checker sends a command to your
 attempt command topic. Your program subscribes to that topic, polls MQTT for a
-short time, and turns the LED on when any command message arrives.
+short time, and turns the LEDs on when any command message arrives.
 
 ## Lab architecture
 The worker starts your program and then publishes a checker command to
@@ -26,12 +26,12 @@ lets the MicroPython MQTT client process waiting messages and call your callback
 ## Assignment
 Write a program that:
 
-- creates `Pin(13, Pin.OUT)`
+- creates outputs for `Pin(2, Pin.OUT)` and `Pin(4, Pin.OUT)`
 - creates an MQTT client
 - sets a callback function
 - connects and subscribes to `ATTEMPT_TOPIC_ROOT + "/command"`
 - calls `check_msg()` inside a limited loop
-- turns the LED on in the callback
+- turns both LEDs on in the callback
 - disconnects cleanly
 
 Checker command:
@@ -49,14 +49,14 @@ Checker command:
 import time
 from machine import Pin
 
-led = Pin(13, Pin.OUT)
+leds = [Pin(2, Pin.OUT), Pin(4, Pin.OUT)]
 
 client = make_mqtt_client()
 topic = ATTEMPT_TOPIC_ROOT + "/command"
 
 
 def on_message(topic, message):
-    # TODO: turn the LED on here
+    # TODO: turn both LEDs on here
     pass
 
 

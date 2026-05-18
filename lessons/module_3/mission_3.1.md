@@ -1,7 +1,7 @@
 # Lesson 10: LED State Protocol
 
 ## Lesson objective
-Implement a tiny IoT command protocol for one LED.
+Implement a tiny IoT command protocol for the ESP32 LEDs.
 
 ![Beginner](https://img.shields.io/badge/Difficulty-Beginner-green)
 
@@ -18,10 +18,10 @@ After the command, the device reports the final state.
 ## Lab architecture
 This lesson uses the full course architecture: command input, hardware action,
 event output, and state output. The worker sends a command to the real ESP32. The
-board updates the LED, publishes an event that describes the change, and publishes
+board updates the LEDs, publishes an event that describes the change, and publishes
 a state message that describes the final known state.
 
-Use `Pin(13, Pin.OUT)` for the course LED, the same as in the previous LED
+Use `Pin(2, Pin.OUT)` and `Pin(4, Pin.OUT)` for the course LEDs, the same as in the previous LED
 lessons.
 
 ![The command channel requests an LED action; the ESP32 updates hardware, publishes an event, and publishes final state.](https://raw.githubusercontent.com/autolab-fi/mqtt-course-basic/main/images/lessons/lesson-10-state-protocol.svg)
@@ -32,7 +32,7 @@ protocol uses `target` and `action`, the event protocol uses `name`, `event`, an
 `state`, and the state protocol uses `target` and `state`.
 
 Events and state are different. An event says that something happened, for
-example "the LED changed". State says what is true now, for example "the LED is
+example "the LED changed". State says what is true now, for example "the LEDs are
 on". Real IoT systems often publish both because applications need both history
 and the latest known state.
 
@@ -81,7 +81,7 @@ import json
 import time
 from machine import Pin
 
-led = Pin(13, Pin.OUT)
+leds = [Pin(2, Pin.OUT), Pin(4, Pin.OUT)]
 client = make_mqtt_client()
 state = {"value": False, "done": False}
 
@@ -100,7 +100,7 @@ def on_message(topic, message):
         pass
     else:
         return
-    # TODO: update GPIO 13, then publish event and state messages
+    # TODO: update GPIO 2 and GPIO 4, then publish event and state messages
 
 
 # TODO: subscribe, publish protocol_ready, poll for a command, disconnect.

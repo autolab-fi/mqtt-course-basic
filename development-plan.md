@@ -36,7 +36,7 @@ Prepare a basic course repository for a new MQTT and ESP32 lab course while pres
 The first production version should target the hardware that already exists:
 
 - ESP32 board
-- one visible LED output
+- two visible LED outputs on GPIO 2 and GPIO 4
 - MQTT broker connection
 - worker-side MQTT observation and command injection
 
@@ -167,7 +167,7 @@ Goal:
 - reuse a consistent ESP32/MQTT visual language across the course
 - prefer diagrams, message-flow graphics, and small UI-like protocol examples
   over decorative images
-- keep hardware visuals concrete: ESP32 board, GPIO 13 LED, MQTT broker,
+- keep hardware visuals concrete: ESP32 board, GPIO 2 and GPIO 4 LEDs, MQTT broker,
   worker/checker, and attempt topics
 
 Shared visual system:
@@ -216,7 +216,7 @@ Recommended assets by lesson:
 
 4. `Lesson 4: Turn LED On and Report It`
    - Asset: GPIO-to-event diagram.
-   - Format: ESP32 pin GPIO 13 lights an LED, then an event message travels to
+   - Format: ESP32 pins GPIO 2 and GPIO 4 light LEDs, then an event message travels to
      the checker.
    - Purpose: connect physical output with MQTT confirmation.
    - Suggested filename: `images/lessons/lesson-04-led-on-event.png`.
@@ -254,7 +254,7 @@ Recommended assets by lesson:
 
 9. `Lesson 9: Control the LED from MQTT`
    - Asset: full command-action-event loop.
-   - Format: worker sends JSON command, ESP32 parses it, GPIO 13 changes LED,
+   - Format: worker sends JSON command, ESP32 parses it, GPIO 2 and GPIO 4 change LEDs,
      ESP32 publishes `led changed` event.
    - Purpose: show the first complete physical IoT control loop.
    - Suggested filename: `images/lessons/lesson-09-led-command-loop.png`.
@@ -270,7 +270,7 @@ Recommended assets by lesson:
 Additional course-level visuals:
 
 - Course hero image: real ESP32 board connected to an MQTT broker/cloud concept,
-  with one visible LED as the central hardware cue.
+  with two visible LEDs as the central hardware cue.
 - Module 1 overview: MQTT basics map with broker, topics, publish, and lifecycle.
 - Module 2 overview: command receiving map with subscribe, callback, polling,
   JSON command, and LED output.

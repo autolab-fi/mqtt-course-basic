@@ -1,8 +1,9 @@
 import json
 from machine import Pin
 
-led = Pin(13, Pin.OUT)
-led.value(0)
+leds = [Pin(2, Pin.OUT), Pin(4, Pin.OUT)]
+for led in leds:
+    led.value(0)
 
 client = make_mqtt_client()
 topic = ATTEMPT_TOPIC_ROOT + "/event"

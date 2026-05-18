@@ -1,26 +1,26 @@
-# Lesson 9: Control the LED from MQTT
+# Lesson 9: Control the LEDs from MQTT
 
 ## Lesson objective
-Turn the ESP32 LED on or off from a JSON MQTT command.
+Turn the ESP32 LEDs on or off from a JSON MQTT command.
 
 ![Beginner](https://img.shields.io/badge/Difficulty-Beginner-green)
 
 ## Introduction
 This is the first physical IoT control task. The checker sends a JSON command,
-your program changes the LED, and then your program publishes an event.
+your program changes the LEDs, and then your program publishes an event.
 
-Assume the LED is connected to `GPIO 13`.
+Assume the LEDs are connected to `GPIO 2` and `GPIO 4`.
 
 ## Lab architecture
 This lesson closes the loop between software and physical hardware. The worker
 publishes a command, the ESP32 receives it over MQTT, your code changes a GPIO
-pin, and the board publishes an event back. The verifier checks the MQTT event,
+pins, and the board publishes an event back. The verifier checks the MQTT event,
 and the lab may also show the real board through the video stream.
 
 ## MQTT and hardware concepts
-`machine.Pin(13, Pin.OUT)` gives your code control over GPIO 13 as an output pin.
-Calling `led.value(1)` drives the pin high, and `led.value(0)` drives it low.
-On this board, that controls the visible LED.
+`machine.Pin(2, Pin.OUT)` and `machine.Pin(4, Pin.OUT)` give your code control
+over the LED GPIOs as output pins. Calling `led.value(1)` drives a pin high, and
+`led.value(0)` drives it low. On this board, those pins control the visible LEDs.
 
 The MQTT command contains the desired state. Your code should not just publish a
 success message; it should first apply the command to the hardware and then
@@ -34,8 +34,8 @@ Write a program that:
 - subscribes to `ATTEMPT_TOPIC_ROOT + "/command"`
 - publishes `led_ready` telemetry
 - waits for one JSON LED command
-- turns the LED on or off using `machine.Pin`
-- publishes one LED change event
+- turns both LEDs on or off using `machine.Pin`
+- publishes one change event
 - disconnects cleanly
 
 Checker command:
@@ -74,7 +74,7 @@ import json
 import time
 from machine import Pin
 
-led = Pin(13, Pin.OUT)
+leds = [Pin(2, Pin.OUT), Pin(4, Pin.OUT)]
 client = make_mqtt_client()
 command_topic = ATTEMPT_TOPIC_ROOT + "/command"
 telemetry_topic = ATTEMPT_TOPIC_ROOT + "/telemetry"
@@ -87,7 +87,7 @@ def on_message(topic, message):
     if command.get("target") != "led":
         return
     state = bool(command.get("value"))
-    # TODO: apply state to led with led.value(...)
+    # TODO: apply state to both LEDs with led.value(...)
     payload = {
         "name": "led",
         "event": "changed",

@@ -1,8 +1,8 @@
 {
     "fullCourseName":"MQTT and ESP32 IoT Lab Course",
     "shortCourseName":"MQTT IoT Lab",
-    "shortDescription":"Learn Python and MQTT by programming a real ESP32 device with one LED, JSON messages, and worker-side MQTT verification.",
-    "fullDescription":"MQTT and ESP32 IoT Lab Course is a hands-on beginner course where students learn the basic Internet of Things workflow on a real ESP32 board. Students run short MicroPython snippets using the umqtt.simple MQTT client through the lab helper make_mqtt_client(), connect to an MQTT broker, publish JSON telemetry, subscribe to command topics, parse JSON commands, control one LED, and report device state back through MQTT. The course is designed for students with little or no Python experience and keeps every task small enough to debug through MQTT messages and worker feedback.",
+    "shortDescription":"Learn Python and MQTT by programming a real ESP32 device with two LEDs, JSON messages, and worker-side MQTT verification.",
+    "fullDescription":"MQTT and ESP32 IoT Lab Course is a hands-on beginner course where students learn the basic Internet of Things workflow on a real ESP32 board. Students run short MicroPython snippets using the umqtt.simple MQTT client through the lab helper make_mqtt_client(), connect to an MQTT broker, publish JSON telemetry, subscribe to command topics, parse JSON commands, control LEDs on GPIO 2 and GPIO 4, and report device state back through MQTT. The course is designed for students with little or no Python experience and keeps every task small enough to debug through MQTT messages and worker feedback.",
     "imageSmall":"https://api.ondroid.org/media/courses/0/images/course-info/mqtt-course-small.jpg",
     "imageBig":"https://api.ondroid.org/media/courses/0/images/course-info/mqtt-course-big.jpg",
     "workload":"3 ECTS",

@@ -2,7 +2,7 @@ import json
 import time
 from machine import Pin
 
-led = Pin(13, Pin.OUT)
+leds = [Pin(2, Pin.OUT), Pin(4, Pin.OUT)]
 client = make_mqtt_client()
 command_topic = ATTEMPT_TOPIC_ROOT + "/command"
 telemetry_topic = ATTEMPT_TOPIC_ROOT + "/telemetry"
@@ -14,7 +14,8 @@ def on_message(topic, message):
     command = json.loads(message.decode())
     if command.get("target") == "led" and command.get("action") == "set":
         state = bool(command.get("value"))
-        led.value(1 if state else 0)
+        for led in leds:
+            led.value(1 if state else 0)
         payload = {"name": "led", "event": "changed", "state": state}
         client.publish(event_topic.encode(), json.dumps(payload).encode())
         handled["done"] = True

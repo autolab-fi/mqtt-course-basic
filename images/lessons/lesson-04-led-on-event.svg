@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
-  <title id="title">Turn GPIO 13 LED on and publish an event</title>
-  <desc id="desc">The ESP32 sets GPIO 13 high to turn the LED on, then publishes a led event to the checker.</desc>
+  <title id="title">Turn GPIO 2 and GPIO 4 LEDs on and publish an event</title>
+  <desc id="desc">The ESP32 sets GPIO 2 and GPIO 4 high to turn the LEDs on, then publishes a led event to the checker.</desc>
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 Z" fill="#16a34a"/>
@@ -25,7 +25,7 @@
   <rect class="board" x="78" y="108" width="260" height="190"/>
   <text class="label" x="178" y="144">ESP32</text>
   <rect class="pin" x="304" y="186" width="54" height="34"/>
-  <text class="small" x="308" y="209">GPIO13</text>
+  <text class="small" x="304" y="209">GPIO2/4</text>
   <circle class="led-glow" cx="466" cy="203" r="70"/>
   <circle class="led" cx="466" cy="203" r="34"/>
   <text class="label" x="430" y="286">LED on</text>

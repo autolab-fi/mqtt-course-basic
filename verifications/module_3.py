@@ -59,7 +59,7 @@ def verify_attempt(attempt_runtime, td=None):
         return _fail(td, "LED changed event missing on the event topic.", "event_missing", details)
 
     if not _has_pin_output(attempt_runtime):
-        return _fail(td, "Create the LED output with led = Pin(13, Pin.OUT).", "code_check_pin", details)
+        return _fail(td, "Create LED outputs on GPIO 2 and GPIO 4, for example leds = [Pin(2, Pin.OUT), Pin(4, Pin.OUT)].", "code_check_pin", details)
 
     if "toggle" not in attempt_runtime.code:
         return _fail(td, "The final protocol must support the 'toggle' action.", "code_check_toggle", details)
@@ -85,4 +85,8 @@ def _fail(td, description, stage, details):
 
 def _has_pin_output(attempt_runtime):
     compact = attempt_runtime.code.replace(" ", "")
-    return "Pin(13,Pin.OUT" in compact or "Pin(13,machine.Pin.OUT" in compact
+    return _has_required_pin(compact, 2) and _has_required_pin(compact, 4)
+
+
+def _has_required_pin(compact, pin):
+    return "Pin({},Pin.OUT".format(pin) in compact or "Pin({},machine.Pin.OUT".format(pin) in compact

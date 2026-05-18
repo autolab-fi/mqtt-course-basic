@@ -7,7 +7,7 @@ This repository is a starting point for a real-hardware IoT course built around:
 
 - `ESP32`
 - MQTT telemetry and commands
-- one visible LED output
+- two visible LED outputs on GPIO 2 and GPIO 4
 - JSON command parsing
 - worker-observed MQTT verification
 

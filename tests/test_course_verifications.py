@@ -99,8 +99,9 @@ def test_led_on_event_passes_happy_path():
         code="""
 import json
 from machine import Pin
-led = Pin(13, Pin.OUT)
-led.value(1)
+leds = [Pin(2, Pin.OUT), Pin(4, Pin.OUT)]
+for led in leds:
+    led.value(1)
 client = make_mqtt_client()
 client.connect()
 client.publish((ATTEMPT_TOPIC_ROOT + "/event").encode(), b'{"name":"led","state":true}')
@@ -122,8 +123,9 @@ def test_led_off_event_passes_happy_path():
         code="""
 import json
 from machine import Pin
-led = Pin(13, Pin.OUT)
-led.value(0)
+leds = [Pin(2, Pin.OUT), Pin(4, Pin.OUT)]
+for led in leds:
+    led.value(0)
 client = make_mqtt_client()
 client.connect()
 client.publish((ATTEMPT_TOPIC_ROOT + "/event").encode(), b'{"name":"led","state":false}')
@@ -145,11 +147,12 @@ def test_led_command_on_minimal_passes_code_shape():
         code="""
 import time
 from machine import Pin
-led = Pin(13, Pin.OUT)
+leds = [Pin(2, Pin.OUT), Pin(4, Pin.OUT)]
 client = make_mqtt_client()
 topic = ATTEMPT_TOPIC_ROOT + "/command"
 def on_message(topic, message):
-    led.value(1)
+    for led in leds:
+        led.value(1)
 client.set_callback(on_message)
 client.connect()
 client.subscribe(topic.encode())
@@ -224,7 +227,7 @@ def test_led_command_listener_passes_happy_path():
         code="""
 import json
 from machine import Pin
-led = Pin(13, Pin.OUT)
+leds = [Pin(2, Pin.OUT), Pin(4, Pin.OUT)]
 client = make_mqtt_client()
 client.connect()
 client.subscribe((ATTEMPT_TOPIC_ROOT + "/command").encode())
@@ -247,14 +250,14 @@ client.disconnect()
     assert result["success"] is True
 
 
-def test_led_command_listener_rejects_old_gpio_2():
+def test_led_command_listener_rejects_old_gpio_13():
     runtime = make_runtime(
         task="led_command_listener",
         module="module_2",
         code="""
 import json
 from machine import Pin
-led = Pin(2, Pin.OUT)
+led = Pin(13, Pin.OUT)
 client = make_mqtt_client()
 client.connect()
 client.subscribe((ATTEMPT_TOPIC_ROOT + "/command").encode())
@@ -284,7 +287,7 @@ def test_led_state_protocol_requires_state_and_event():
         code="""
 import json
 from machine import Pin
-led = Pin(13, Pin.OUT)
+leds = [Pin(2, Pin.OUT), Pin(4, Pin.OUT)]
 client = make_mqtt_client()
 client.connect()
 client.subscribe((ATTEMPT_TOPIC_ROOT + "/command").encode())
@@ -310,14 +313,14 @@ client.disconnect()
     assert module_3.get_verification_config("led_state_protocol")["attempt_timeout_s"] == 30.0
 
 
-def test_led_state_protocol_rejects_old_gpio_2():
+def test_led_state_protocol_rejects_old_gpio_13():
     runtime = make_runtime(
         task="led_state_protocol",
         module="module_3",
         code="""
 import json
 from machine import Pin
-led = Pin(2, Pin.OUT)
+led = Pin(13, Pin.OUT)
 client = make_mqtt_client()
 client.connect()
 client.subscribe((ATTEMPT_TOPIC_ROOT + "/command").encode())

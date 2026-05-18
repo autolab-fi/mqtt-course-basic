@@ -1,14 +1,15 @@
 import time
 from machine import Pin
 
-led = Pin(13, Pin.OUT)
+leds = [Pin(2, Pin.OUT), Pin(4, Pin.OUT)]
 
 client = make_mqtt_client()
 topic = ATTEMPT_TOPIC_ROOT + "/command"
 
 
 def on_message(topic, message):
-    led.value(1)
+    for led in leds:
+        led.value(1)
 
 
 client.set_callback(on_message)

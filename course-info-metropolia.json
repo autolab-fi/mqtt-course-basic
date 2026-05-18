@@ -1,8 +1,8 @@
 {
     "fullCourseName":"MQTT and ESP32 IoT Lab Course @ Metropolia",
     "shortCourseName":"MQTT IoT Lab @ Metropolia",
-    "shortDescription":"Learn Python and MQTT on a real ESP32 board with one LED, JSON commands, and MQTT verification.",
-    "fullDescription":"This course introduces students to basic IoT communication through practical ESP32 laboratory assignments. Students run short MicroPython snippets using the umqtt.simple MQTT client through the lab helper make_mqtt_client(), publish JSON telemetry, subscribe to MQTT command topics, parse JSON payloads, control one LED, and report the final device state. The course is structured so each lab can be verified through MQTT traffic from the real board.",
+    "shortDescription":"Learn Python and MQTT on a real ESP32 board with two LEDs, JSON commands, and MQTT verification.",
+    "fullDescription":"This course introduces students to basic IoT communication through practical ESP32 laboratory assignments. Students run short MicroPython snippets using the umqtt.simple MQTT client through the lab helper make_mqtt_client(), publish JSON telemetry, subscribe to MQTT command topics, parse JSON payloads, control LEDs on GPIO 2 and GPIO 4, and report the final device state. The course is structured so each lab can be verified through MQTT traffic from the real board.",
     "imageSmall":"https://api.ondroid.org/media/courses/0/images/course-info/mqtt-course-small.jpg",
     "imageBig":"https://api.ondroid.org/media/courses/0/images/course-info/mqtt-course-big.jpg",
     "workload":"3 ECTS",
